@@ -1,0 +1,92 @@
+<%= form_for(location) do |f| %>
+  <% if location.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(location.errors.count, "error") %> prohibited this location from being saved:</h2>
+
+      <ul>
+      <% location.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= f.label :ukprn %>
+    <%= f.text_field :ukprn %>
+  </div>
+
+  <div class="field">
+    <%= f.label :name %>
+    <%= f.text_area :name %>
+  </div>
+
+  <div class="field">
+    <%= f.label :lat %>
+    <%= f.text_field :lat %>
+  </div>
+
+  <div class="field">
+    <%= f.label :long %>
+    <%= f.text_field :long %>
+  </div>
+
+  <div class="field">
+    <%= f.label :locid %>
+    <%= f.text_field :locid %>
+  </div>
+
+  <div class="field">
+    <%= f.label :locukprn %>
+    <%= f.text_field :locukprn %>
+  </div>
+
+  <div class="field">
+    <%= f.label :loccountry %>
+    <%= f.text_field :loccountry %>
+  </div>
+
+  <div class="field">
+    <%= f.label :privatelower %>
+    <%= f.number_field :privatelower %>
+  </div>
+
+  <div class="field">
+    <%= f.label :privateupper %>
+    <%= f.number_field :privateupper %>
+  </div>
+
+  <div class="field">
+    <%= f.label :suurl %>
+    <%= f.text_field :suurl %>
+  </div>
+
+  <div class="field">
+    <%= f.label :accomurl %>
+    <%= f.text_field :accomurl %>
+  </div>
+
+  <div class="field">
+    <%= f.label :instbeds %>
+    <%= f.number_field :instbeds %>
+  </div>
+
+  <div class="field">
+    <%= f.label :instlower %>
+    <%= f.number_field :instlower %>
+  </div>
+
+  <div class="field">
+    <%= f.label :instupper %>
+    <%= f.number_field :instupper %>
+  </div>
+
+  <div class="field">
+    <%= f.label :institute_id %>
+    <%= f.text_field :institute_id %>
+  </div>
+
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>

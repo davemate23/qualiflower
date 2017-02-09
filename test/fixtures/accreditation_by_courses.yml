@@ -1,0 +1,17 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  accbodyname: MyString
+  acctype: MyText
+  hep: MyString
+  kiscoursetitle: MyString
+  kiscourseid: MyString
+  reference: 
+
+two:
+  accbodyname: MyString
+  acctype: MyText
+  hep: MyString
+  kiscoursetitle: MyString
+  kiscourseid: MyString
+  reference: 

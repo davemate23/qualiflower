@@ -1,0 +1,21 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  title: MyText
+  pubukprn: MyString
+  ukprn: MyString
+  kiscourseid: MyString
+  kismode: 1
+  comsbj: 1
+  perc: 1
+  order: 1
+
+two:
+  title: MyText
+  pubukprn: MyString
+  ukprn: MyString
+  kiscourseid: MyString
+  kismode: 1
+  comsbj: 1
+  perc: 1
+  order: 1

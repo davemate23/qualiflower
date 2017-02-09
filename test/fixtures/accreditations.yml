@@ -1,0 +1,23 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  ukprn: MyString
+  pubukprn: MyString
+  kiscourse: MyString
+  accurl: MyString
+  acctext: MyText
+  acctype: MyString
+  kismode: 1
+  accdepend: 1
+  accdependurl: MyString
+
+two:
+  ukprn: MyString
+  pubukprn: MyString
+  kiscourse: MyString
+  accurl: MyString
+  acctext: MyText
+  acctype: MyString
+  kismode: 1
+  accdepend: 1
+  accdependurl: MyString

@@ -1,0 +1,29 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  pubukprn: MyString
+  ukprn: MyString
+  kiscourseid: MyString
+  kismode: 1
+  contpop: 1
+  contagg: 1
+  contsbj: MyString
+  ucont: 1
+  udormant: 1
+  ugained: 1
+  uleft: 1
+  ulower: 
+
+two:
+  pubukprn: MyString
+  ukprn: MyString
+  kiscourseid: MyString
+  kismode: 1
+  contpop: 1
+  contagg: 1
+  contsbj: MyString
+  ucont: 1
+  udormant: 1
+  ugained: 1
+  uleft: 1
+  ulower: 

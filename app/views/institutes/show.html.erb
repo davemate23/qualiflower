@@ -1,0 +1,47 @@
+<p id="notice"><%= notice %></p>
+
+<div class="row">
+            <div class="col-md-8">
+                <div class="row">
+                    <div class="col-md-10 offset-sm-2 text-left">
+                        <h1><%= @institute.name %></h1>
+                        <%= image_tag(@institute.picture, size: "300x200") %>
+                    </div>
+
+                    <div class="col-md-10 offset-sm-2 text-left">
+                        <p>
+						  <strong>Description:</strong>
+						  <%= @institute.description %> Information sourced from Wikipedia.com.
+						</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4 text-center">
+                <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+                <!-- Home -->
+                <ins class="adsbygoogle"
+                     style="display:block"
+                     data-ad-client="ca-pub-1384230975173310"
+                     data-ad-slot="7406151434"
+                     data-ad-test="on"
+                     data-ad-format="auto"></ins>
+                <script>
+                (adsbygoogle = window.adsbygoogle || []).push({});
+                </script>
+            </div>
+        </div>
+
+
+
+<p>
+  <strong>Picture:</strong>
+  
+</p>
+
+<p>
+  <strong>Url:</strong>
+  <%= @institute.suurl %>
+</p>
+
+<%= link_to 'Edit', edit_institute_path(@institute) %> |
+<%= link_to 'Back', institutes_path %>

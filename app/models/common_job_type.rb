@@ -1,0 +1,2 @@
+class CommonJobType < ApplicationRecord
+end

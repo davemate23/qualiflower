@@ -1,0 +1,2 @@
+json.extract! location, :id, :ukprn, :name, :lat, :long, :locid, :locukprn, :loccountry, :privatelower, :privateupper, :suurl, :accomurl, :instbeds, :instlower, :instupper, :institute_id, :created_at, :updated_at
+json.url location_url(location, format: :json)

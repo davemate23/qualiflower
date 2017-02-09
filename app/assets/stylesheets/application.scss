@@ -1,0 +1,97 @@
+/*
+ * This is a manifest file that'll be compiled into application.css, which will include all the files
+ * listed below.
+ *
+ * Any CSS and SCSS file within this directory, lib/assets/stylesheets, vendor/assets/stylesheets,
+ * or any plugin's vendor/assets/stylesheets directory can be referenced here using a relative path.
+ *
+ * You're free to add application-wide styles to this file and they'll appear at the bottom of the
+ * compiled file so the styles you add here take precedence over styles defined in any other CSS/SCSS
+ * files in this directory. Styles in this file should be added after the last require_* statement.
+ * It is generally better to create a new file per style scope.
+ *
+ *= require font-awesome
+ */
+
+ 
+@import 'bootstrap';
+
+html,body {
+  height:100%;
+  color:#555;
+}
+
+body {
+	padding-top: 70px;
+}
+@media (max-width:979px) {
+	body {
+	padding-top: 0px;
+	}
+}
+
+section {  
+    padding-bottom:50px; 
+    min-height:calc(100% - 1px);
+}
+ 
+.padding-bottom-0 {
+	padding-bottom:0;
+}
+  
+#section1 {
+	
+}
+  
+#section2 {
+    background-color: #f0f0f0;
+}
+  
+#section3 {
+	
+}
+
+#section4 {
+	background-color: #f0f0f0;
+}
+
+#section5,#section7 {
+   
+}
+
+#section6 {
+	background-color: #f0f0f0;
+}
+
+footer {
+	background-color:#494949;
+    color:#ddd;
+    min-height:100px;
+    padding-top:20px;
+    padding-bottom:40px;
+}
+
+footer .nav>li>a {
+    padding:3px;
+    color:#ccc;
+}
+
+footer .nav>li>a:hover {
+    background-color:transparent;
+	color:#fff;
+}
+
+.scroll-top {
+   position:fixed;
+   bottom:0;
+   right:15px;
+   z-index:100;
+   font-size:24px;
+   background-color: #fafafa;
+}
+.scroll-top a:link, .scroll-top a:visited {
+   color:#777;
+} 
+ 
+
+

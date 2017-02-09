@@ -1,0 +1,2 @@
+json.extract! accreditation, :id, :ukprn, :pubukprn, :kiscourse, :accurl, :acctext, :acctype, :kismode, :accdepend, :accdependurl, :created_at, :updated_at
+json.url accreditation_url(accreditation, format: :json)

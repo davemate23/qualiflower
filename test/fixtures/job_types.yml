@@ -1,0 +1,27 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  pubukprn: MyString
+  ukprn: MyString
+  kiscourseid: MyString
+  kismode: 1
+  jobpop: 1
+  jobresp_rate: 1
+  jobagg: 1
+  jobsbj: MyString
+  profman: 1
+  otherjob: 1
+  unkwn: 1
+
+two:
+  pubukprn: MyString
+  ukprn: MyString
+  kiscourseid: MyString
+  kismode: 1
+  jobpop: 1
+  jobresp_rate: 1
+  jobagg: 1
+  jobsbj: MyString
+  profman: 1
+  otherjob: 1
+  unkwn: 1
