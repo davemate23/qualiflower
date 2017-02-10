@@ -73,7 +73,7 @@ namespace :import do
 
  		CSV.foreach(filename, headers: true) do |row|
  			course = Course.create(pubukprn: row["PUBUKPRN"], ukprn: row["UKPRN"], assurl: row["ASSURL"], crseurl: row["CRSEURL"], distance: row["DISTANCE"], employurl: row["EMPLOYURL"], engfee: row["ENGFEE"], feetbc: row["FEETBC"], foundation: row["FOUNDATION"], honours: row["HONOURS"], jacs1: row["JACS1"], jacs2: row["JACS2"], jacs3: row["JACS3"], kiscourseid: row["KISCOURSEID"], kismode: row["KISMODE"], kistype: row["KISTYPE"], ldcs1: row["LDCS1"], ldcs2: row["LDCS2"], ldcs3: row["LDCS3"], level: row["LEVEL"], locchnge: row["LOCCHNGE"], lturl: row["LTURL"], meanssup: row["MEANSSUP"], nhs: row["NHS"], nifee: row["NIFEE"], noncreditassess: row["NONCREDITASSESS"], numstage: row["NUMSTAGE"], othsup: row["OTHSUP"], relatedkis1: row["RELATEDKIS1"], relatedkis2: row["RELATEDKIS2"], relatedkis3: row["RELATEDKIS3"], sandwich: row["SANDWICH"], scotfee: row["SCOTFEE"], supporturl: row["SUPPORTURL"], title: row["TITLE"], ucasprogid: row["UCASPROGID"], ukprnapply: row["UKPRNAPPLY"], varfee: row["VARFEE"], waiver: row["WAIVER"], welsh: row["WELSH"], yearabroad: row["YEARABROAD"], kisaim: row["KISAIMCODE"], avgwritten: row["AVGWRITTEN"], avgcoursework: row["AVGCOURSEWORK"], avgscheduled: row["AVGSCHEDULED"])
- 			puts "#{title} - #{course.errors.full_messages.join(",")}" if course.errors.any?
+ 			puts "#{course.title} - #{course.errors.full_messages.join(",")}" if course.errors.any?
  			counter += 1 if course.persisted?
  		end
  		puts "Imported #{counter} courses."
@@ -93,7 +93,7 @@ namespace :import do
 
  		CSV.foreach(filename, headers: true) do |row|
  			continuation = Continuation.create(pubukprn: row["PUBUKPRN"], ukprn: row["UKPRN"], kiscourseid: row["KISCOURSEID"], kismode: row["CONTPOP"], contagg: row["CONTAGG"], contsbj: row["CONTSBJ"], ucont: row["UCONT"], udormant: row["UDORMANT"], ugained: row["UGAINED"], uleft: row["ULEFT"], ulower: row["ULOWER"])
- 			puts "#{id} - #{continuation.errors.full_messages.join(",")}" if continuation.errors.any?
+ 			puts "#{continuation.id} - #{continuation.errors.full_messages.join(",")}" if continuation.errors.any?
  			counter += 1 if continuation.persisted?
  		end
  		puts "Imported #{counter} details of course continuation."
@@ -113,7 +113,7 @@ namespace :import do
 
  		CSV.foreach(filename, headers: true) do |row|
  			accreditation = Accreditation.create(pubukprn: row["PUBUKPRN"], ukprn: row["UKPRN"], kiscourse: row["KISCOURSE"], acctype: row["ACCTYPE"], kismode: row["KISMODE"], accdepend: row["ACCDEPEND"], accdependurl: row["ACCDEPENDURL"])
- 			puts "#{kiscourse} - #{accreditation.errors.full_messages.join(",")}" if accreditation.errors.any?
+ 			puts "#{accreditation.kiscourse} - #{accreditation.errors.full_messages.join(",")}" if accreditation.errors.any?
  			counter += 1 if accreditation.persisted?
  		end
  		puts "Imported #{counter} accreditations."
@@ -133,9 +133,9 @@ namespace :import do
  		counter = 0
 
  		CSV.foreach(filename, headers: true) do |row|
- 			accreditationdetails = AccreditationDetails.create(accurl: row["ACCURL"], acctext: row["ACCTEXT"], acctype: row["ACCTYPE"])
- 			puts "#{id} - #{accreditationdetails.errors.full_messages.join(",")}" if accreditationdetails.errors.any?
- 			counter += 1 if accreditationdetails.persisted?
+ 			accreditationdetail = AccreditationDetail.create(accurl: row["ACCURL"], acctext: row["ACCTEXT"], acctype: row["ACCTYPE"])
+ 			puts "#{accreditationdetail.id} - #{accreditationdetail.errors.full_messages.join(",")}" if accreditationdetail.errors.any?
+ 			counter += 1 if accreditationdetail.persisted?
  		end
  		puts "Imported #{counter} accreditation details."
  	end
@@ -154,7 +154,7 @@ namespace :import do
 
  		CSV.foreach(filename, headers: true) do |row|
  			accreditationbycourse = AccreditationByCourse.create(accbodyname: row["AccreditingBodyName"], acctype: row["AccreditionType"], hep: row["HEP"], kiscoursetitle: ["KisCourseTitle"], kiscourseid: ["KiscourseID"])
- 			puts "#{id} - #{accreditationbycourse.errors.full_messages.join(",")}" if accreditationbycourse.errors.any?
+ 			puts "#{accreditationbycourse.id} - #{accreditationbycourse.errors.full_messages.join(",")}" if accreditationbycourse.errors.any?
  			counter += 1 if accreditationbycourse.persisted?
  		end
  		puts "Imported #{counter} course accreditation details."
@@ -174,7 +174,7 @@ namespace :import do
 
  		CSV.foreach(filename, headers: true) do |row|
  			job = Job.create(pubukprn: row["PUBUKPRN"], ukprn: row["UKPRN"], kiscoursid: row["KISCOURSEID"], kismode: row["KISMODE"], comsbj: row["COMSBJ"], title: row["JOB"], perc: row["PERC"], order: row["ORDER"])
- 			puts "#{title} - #{job.errors.full_messages.join(",")}" if job.errors.any?
+ 			puts "#{job.title} - #{job.errors.full_messages.join(",")}" if job.errors.any?
  			counter += 1 if job.persisted?
  		end
  		puts "Imported #{counter} jobs."
@@ -194,7 +194,7 @@ namespace :import do
 
  		CSV.foreach(filename, headers: true) do |row|
  			commonjobtype = CommonJobType.create(pubukprn: row["PUBUKPRN"], ukprn: row["UKPRN"], kiscoursid: row["KISCOURSEID"], kismode: row["KISMODE"], comsbj: row["COMSBJ"], compop: row["COMPOP"], comresp_rate: row["COMRESP_RATE"], comagg: row["COMAGG"])
- 			puts "#{id} - #{commonjobtype.errors.full_messages.join(",")}" if commonjobtype.errors.any?
+ 			puts "#{commonjobtype.id} - #{commonjobtype.errors.full_messages.join(",")}" if commonjobtype.errors.any?
  			counter += 1 if commonjobtype.persisted?
  		end
  		puts "Imported #{counter} common job types."
@@ -214,7 +214,7 @@ namespace :import do
 
  		CSV.foreach(filename, headers: true) do |row|
  			jobtype = JobType.create(pubukprn: row["PUBUKPRN"], ukprn: row["UKPRN"], kiscoursid: row["KISCOURSEID"], kismode: row["KISMODE"], jobpop: row["JOBPOP"], jobresp_rate: row["JOBRESP_RATE"], jobagg: row["JOBAGG"], jobsbj: row["JOBSBJ"], profman: row["PROFMAN"], otherjob: row["OTHERJOB"], unkwn: ["UNKWN"])
- 			puts "#{id} - #{jobtype.errors.full_messages.join(",")}" if jobtype.errors.any?
+ 			puts "#{jobtype.id} - #{jobtype.errors.full_messages.join(",")}" if jobtype.errors.any?
  			counter += 1 if jobtype.persisted?
  		end
  		puts "Imported #{counter} profession types."
