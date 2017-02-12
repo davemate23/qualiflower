@@ -36,6 +36,7 @@ gem 'bootstrap'
 gem 'rails-assets-tether'
 gem 'font-awesome-rails'
 gem 'roo'
+gem 'carrierwave'
 
 # Use Capistrano for deployment
 # gem 'capistrano-rails', group: :development
