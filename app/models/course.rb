@@ -3,4 +3,6 @@ class Course < ApplicationRecord
 	has_many :accreditations
 
 	validates :kiscourseid, uniqueness: true
+
+	mount_uploader :image, ImageUploader
 end

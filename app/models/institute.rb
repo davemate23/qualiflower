@@ -4,6 +4,8 @@ class Institute < ApplicationRecord
 
 	validates :ukprn, uniqueness: true
 
+	mount_uploader :image, ImageUploader
+
 	
 
 end

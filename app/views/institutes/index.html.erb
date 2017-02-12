@@ -10,7 +10,7 @@
     <tr>
       <th>Name</th>
       <th>Description</th>
-      <th>Picture</th>
+      <th>Image</th>
       <th>Url</th>
       <th colspan="3"></th>
     </tr>
@@ -21,7 +21,7 @@
       <tr>
         <td><%= institute.name %></td>
         <td><%= institute.description %></td>
-        <td><%= institute.picture %></td>
+        <td><%= image_tag institute.image %></td>
         <td><%= institute.suurl %></td>
         <td><%= link_to 'Show', institute %></td>
         <td><%= link_to 'Edit', edit_institute_path(institute) %></td>

@@ -1,4 +1,4 @@
-<%= form_for(institute) do |f| %>
+<%= form_for(institute, :html => { multipart: true }) do |f| %>
   <% if institute.errors.any? %>
     <div id="error_explanation">
       <h2><%= pluralize(institute.errors.count, "error") %> prohibited this institute from being saved:</h2>
@@ -22,13 +22,13 @@
   </div>
 
   <div class="field">
-    <%= f.label :picture %>
-    <%= f.text_field :picture %>
+    <%= f.label :image %>
+    <%= f.file_field :image %>
   </div>
 
   <div class="field">
-    <%= f.label :url %>
-    <%= f.text_field :url %>
+    <%= f.label :suurl %>
+    <%= f.text_field :suurl %>
   </div>
 
   <div class="actions">
