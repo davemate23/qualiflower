@@ -38,7 +38,11 @@ namespace :import do
  			next if page.content.nil?
 
  			description = page.summary
- 			picture = page.image_urls.first
+ 			if page.image_urls.first == "https://upload.wikimedia.org/wikipedia/en/4/4a/Commons-logo.svg" 
+ 				picture = page.image_urls.last
+ 			else
+ 				picture = page.image_urls.first 				
+ 			end
  			institute.update!(description: description, picture: picture)
  		end
  	end

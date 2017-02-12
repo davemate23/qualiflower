@@ -8,74 +8,10 @@
   </head>
 
   <body>
-	<nav class="navbar navbar-light bg-faded fixed-top navbar-toggleable-sm"
-	role="navigation">
-	    <div class="container">
-	        <button type="button" class="navbar-toggler float-right hidden-md-up"
-	        data-toggle="collapse" data-target="#navbar-collapsible">☰</button> <a class="navbar-brand" href="#">Qualiflower</a>
-	        <ul class="nav navbar-nav navbar-left">
-	            <li class="nav-item"><a href="#section1" class="nav-link">Courses</a>
-	            </li>
-	            <li class="nav-item"><a href="#section2" class="nav-link">Schools</a>
-	            </li>
-	            <li class="nav-item"><a href="#section3" class="nav-link">Careers</a>
-	            </li>
-	            <li class="nav-item"><a href="#section4" class="nav-link">Funding</a>
-	            </li>
-	            <li class="nav-item"><a href="#section5" class="nav-link">Cinco</a>
-	            </li>
-	            <li class="nav-item"><a href="#section6" class="nav-link">Seis</a>
-	            </li>
-	            <li class="nav-item"><a href="#section7" class="nav-link">Siete</a>
-	            </li>
-	        </ul>
-	    </div>
-	</nav>
+  <%= render 'layouts/navbar' %>
     <%= yield %>
   </body>
-  <footer id="footer">
-    <div class="container">
-        <div class="row">
-            <div class="col-xs-6 col-md-6 col-lg-3 column">
-                 <h4>Information</h4>
-                 <nav class="nav flex-column text-left">
-                    <a class="nav-link" href="#">Products</a>
-                    <a class="nav-link" href="#">Services</a>
-                    <a class="nav-link" href="#">Benefits</a>
-                    <a class="nav-link" href="#">Developers</a>
-                 </nav>
-            </div>
-            <div class="col-xs-6 col-lg-3 column">
-                 <h4>Follow Us</h4>
-                 <nav class="nav flex-column">
-                    <a class="nav-link" href="#">Twitter</a>
-                    <a class="nav-link" href="#">Facebook</a>
-                    <a class="nav-link" href="#">Google+</a>
-                    <a class="nav-link" href="#">Pinterest</a>
-                 </nav>
-            </div>
-            <div class="col-xs-6 col-lg-3 column">
-                 <h4>Contact Us</h4>
-                 <nav class="nav flex-column">
-                    <a class="nav-link" href="#">Email</a>
-                    <a class="nav-link" href="#">Headquarters</a>
-                    <a class="nav-link" href="#">Management</a>
-                    <a class="nav-link" href="#">Support</a>
-                 </nav>
-            </div>
-            <div class="col-xs-6 col-lg-3 column">
-                 <h4>Customer Service</h4>
-                 <nav class="nav flex-column">
-                    <a class="nav-link" href="#">About Us</a>
-                    <a class="nav-link" href="#">Delivery Information</a>
-                    <a class="nav-link" href="#">Privacy Policy</a>
-                    <a class="nav-link" href="#">Terms &amp; Conditions</a>
-                 </nav>
-            </div>
-        </div>
-        <!--/row-->
-    </div>
-  </footer>
+  <%= render 'layouts/footer' %>
   <ul class="nav float-right scroll-top">
     <li class="nav-item"><a href="#section1" title="Scroll to top" class="nav-link"><i class="glyphicon glyphicon-chevron-up"></i></a>
     </li>

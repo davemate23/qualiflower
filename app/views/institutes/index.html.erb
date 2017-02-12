@@ -1,6 +1,9 @@
 <p id="notice"><%= notice %></p>
 
-<h1>Institutes</h1>
+<div class="jumbotron">
+  <h2>Choose a school</h2>
+  <h3>Click a school for more information</h3>
+</div>
 
 <table>
   <thead>
@@ -19,7 +22,7 @@
         <td><%= institute.name %></td>
         <td><%= institute.description %></td>
         <td><%= institute.picture %></td>
-        <td><%= institute.url %></td>
+        <td><%= institute.suurl %></td>
         <td><%= link_to 'Show', institute %></td>
         <td><%= link_to 'Edit', edit_institute_path(institute) %></td>
         <td><%= link_to 'Destroy', institute, method: :delete, data: { confirm: 'Are you sure?' } %></td>
