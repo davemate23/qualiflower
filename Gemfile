@@ -38,6 +38,8 @@ gem 'font-awesome-rails'
 gem 'roo'
 gem 'carrierwave'
 gem 'devise'
+gem 'fog-aws'
+gem 'figaro'
 
 # Use Capistrano for deployment
 # gem 'capistrano-rails', group: :development

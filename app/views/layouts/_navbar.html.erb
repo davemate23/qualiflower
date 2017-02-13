@@ -2,18 +2,18 @@
 	<button class="navbar-toggler navbar-toggler-right" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
 	    <span class="navbar-toggler-icon"></span>
 	</button> 
-	    <a class="navbar-brand" href="/">Qualiflower</a>
+	    <%= link_to "Qualiflower", root_path, class: "navbar-brand" %>
 
 	<div class="collapse navbar-collapse" id="navbarSupportedContent">
 	    <ul class="navbar-nav mr-auto">
 	        <li class="nav-item">
-	        	<a href="/courses/" class="nav-link">Courses</a>
+	        	<%= link_to "Courses", courses_path %>
 	        </li>
 	        <li class="nav-item">
-	        	<a href="/institutes/" class="nav-link">Schools</a>
+	        	<%= link_to "Schools", institutes_path %>
 	        </li>
 	        <li class="nav-item">
-	        	<a href="/jobs/" class="nav-link">Careers</a>
+	        	<%= link_to "Careers", jobs_path %>
 	        </li>
 	        <li class="nav-item">
 	        	<a href="/funding/" class="nav-link">Funding</a>
@@ -23,5 +23,13 @@
             <input class="form-control mr-sm-2" type="text" placeholder="Search">
             <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>                     
         </form>
+        <ul class="navbar-nav mr-auto">
+        	<% if user_signed_in? %>
+	        	<li><%= link_to "Edit profile", edit_user_registration_path %></li>
+	        	<li><%= link_to "Sign out", destroy_user_session_path, method: :delete %></li>
+	        <% else %>
+        		<li><%= link_to "Sign in", new_user_session_path %></li>
+        		<li><%= link_to "Sign up", new_user_registration_path %></li>
+        	<% end %>        	
     </div>
 </nav>
