@@ -43,7 +43,7 @@ namespace :import do
  			else
  				image = page.image_urls.first 				
  			end
- 			institute.update!(description: description, image: image)
+ 			institute.update!(description: description, remote_image_url: image)
  		end
  	end
 
@@ -230,6 +230,17 @@ namespace :import do
  			JobType.where(kiscourseid: course.kiscourseid).update_all(course_id: course.id)
  		end
  	end
- 	
+
+ 	desc "Associate courses with locations"
+ 	task courses: :environment do
+ 		filename = File.join(Rails.root, 'app', 'csv', 'COURSELOCATION.csv')
+ 		counter = 0
+
+ 		CSV.foreach(filename, headers: true) do |row|
+ 			courselocation = Location.where(locid: row['LOCID'])  	
+ 			Course.where(kiscourseid: row['KISCOURSEID'], kismode: row['KISMODE']).update_all(location_id: courselocation)
+ 		end
+ 	end
+
 
 end
