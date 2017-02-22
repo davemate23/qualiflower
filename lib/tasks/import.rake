@@ -102,8 +102,8 @@ namespace :import do
  			courselocation = Location.find_by_locid(row['LOCID'])  	
  			courses = Course.where(kiscourseid: row['KISCOURSEID'], kismode: row['KISMODE']).update(location_id: courselocation)
  			courses.each do |course|
- 				puts "#{course.first.title} - #{course.errors.full_messages.join(",")}" if course.errors.any?
- 				counter += 1 if course.persisted?
+ 				
+ 				counter += 1 if courses.persisted?
  			end
  		end
  		puts "Added locations to #{counter} courses."
