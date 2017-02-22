@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170222180156) do
+ActiveRecord::Schema.define(version: 20170222181717) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -392,6 +392,8 @@ ActiveRecord::Schema.define(version: 20170222180156) do
     t.text     "comment"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.integer  "users_id"
+    t.index ["users_id"], name: "index_reviews_on_users_id", using: :btree
   end
 
   create_table "salaries", force: :cascade do |t|
@@ -521,6 +523,7 @@ ActiveRecord::Schema.define(version: 20170222180156) do
   add_foreign_key "nsses", "courses"
   add_foreign_key "nsses", "institutes"
   add_foreign_key "qualifications", "courses"
+  add_foreign_key "reviews", "users", column: "users_id"
   add_foreign_key "salaries", "courses"
   add_foreign_key "salaries", "institutes"
   add_foreign_key "subject_entities", "courses"
