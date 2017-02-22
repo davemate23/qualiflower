@@ -1,0 +1,35 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  pubukprn: MyString
+  ukprn: MyString
+  kiscourseid: MyString
+  kismode: 1
+  assact: MyString
+  coursework: 1
+  independent: 1
+  ltact: MyString
+  placement: 1
+  practical: 1
+  scheduled: 1
+  stage: 1
+  written: 1
+  course: one
+  institute: one
+
+two:
+  pubukprn: MyString
+  ukprn: MyString
+  kiscourseid: MyString
+  kismode: 1
+  assact: MyString
+  coursework: 1
+  independent: 1
+  ltact: MyString
+  placement: 1
+  practical: 1
+  scheduled: 1
+  stage: 1
+  written: 1
+  course: two
+  institute: two

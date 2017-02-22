@@ -1,12 +1,13 @@
 Rails.application.routes.draw do
 	
+  resources :reviews
   devise_for :users
   resources :jobs
   resources :accreditations
   resources :locations
   get "/pages/*page" => "pages#show"
   get 'courses' => 'courses#index', as: :courses
-  resources :courses, only: [:index, :new, :create, :destroy]
+  resources :courses
   resources :institutes do
   	resources :courses
   end

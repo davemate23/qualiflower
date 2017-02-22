@@ -1,5 +1,5 @@
 <nav class="navbar navbar-toggleable-md navbar-light bg-faded">
-	<button class="navbar-toggler navbar-toggler-right" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+	<button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
 	    <span class="navbar-toggler-icon"></span>
 	</button> 
 	    <%= link_to "Qualiflower", root_path, class: "navbar-brand" %>
@@ -7,13 +7,13 @@
 	<div class="collapse navbar-collapse" id="navbarSupportedContent">
 	    <ul class="navbar-nav mr-auto">
 	        <li class="nav-item">
-	        	<%= link_to "Courses", courses_path %>
+	        	<%= link_to "Courses", courses_path, class: "nav-link" %>
 	        </li>
 	        <li class="nav-item">
-	        	<%= link_to "Schools", institutes_path %>
+	        	<%= link_to "Schools", institutes_path, class: "nav-link" %>
 	        </li>
 	        <li class="nav-item">
-	        	<%= link_to "Careers", jobs_path %>
+	        	<%= link_to "Careers", jobs_path, class: "nav-link" %>
 	        </li>
 	        <li class="nav-item">
 	        	<a href="/funding/" class="nav-link">Funding</a>
@@ -25,11 +25,11 @@
         </form>
         <ul class="navbar-nav mr-auto">
         	<% if user_signed_in? %>
-	        	<li><%= link_to "Edit profile", edit_user_registration_path %></li>
-	        	<li><%= link_to "Sign out", destroy_user_session_path, method: :delete %></li>
+	        	<li><%= link_to "Edit profile", edit_user_registration_path, class: "nav-link" %></li>
+	        	<li><%= link_to "Sign out", destroy_user_session_path, class: "nav-link", method: :delete %></li>
 	        <% else %>
-        		<li><%= link_to "Sign in", new_user_session_path %></li>
-        		<li><%= link_to "Sign up", new_user_registration_path %></li>
+        		<li><%= link_to "Sign in", new_user_session_path, class: "nav-link" %></li>
+        		<li><%= link_to "Sign up", new_user_registration_path, class: "nav-link" %></li>
         	<% end %>        	
     </div>
 </nav>

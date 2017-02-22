@@ -1,0 +1,51 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  pubukprn: MyString
+  ukprn: MyString
+  kiscourseid: MyString
+  kismode: 1
+  tarpop: 1
+  taragg: 1
+  tarsbj: 1
+  t001: 1
+  t048: 1
+  t064: 1
+  t080: 1
+  t096: 1
+  t112: 1
+  t128: 1
+  t144: 1
+  t160: 1
+  t176: 1
+  t192: 1
+  t208: 1
+  t224: 1
+  t240: 1
+  course: 
+  institute: one
+
+two:
+  pubukprn: MyString
+  ukprn: MyString
+  kiscourseid: MyString
+  kismode: 1
+  tarpop: 1
+  taragg: 1
+  tarsbj: 1
+  t001: 1
+  t048: 1
+  t064: 1
+  t080: 1
+  t096: 1
+  t112: 1
+  t128: 1
+  t144: 1
+  t160: 1
+  t176: 1
+  t192: 1
+  t208: 1
+  t224: 1
+  t240: 1
+  course: 
+  institute: two

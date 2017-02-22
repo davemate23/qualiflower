@@ -1,0 +1,41 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  pubukprn: MyString
+  ukprn: MyString
+  kiscourseid: MyString
+  kismode: 1
+  degpop: 1
+  degagg: 1
+  degsbj: 1
+  ufirst: 1
+  uupper: 1
+  ulower: 1
+  uother: 1
+  uordinary: 1
+  udistinction: 1
+  umerit: 1
+  upass: 1
+  una: 1
+  course: one
+  institute: one
+
+two:
+  pubukprn: MyString
+  ukprn: MyString
+  kiscourseid: MyString
+  kismode: 1
+  degpop: 1
+  degagg: 1
+  degsbj: 1
+  ufirst: 1
+  uupper: 1
+  ulower: 1
+  uother: 1
+  uordinary: 1
+  udistinction: 1
+  umerit: 1
+  upass: 1
+  una: 1
+  course: two
+  institute: two

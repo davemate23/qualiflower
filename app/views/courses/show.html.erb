@@ -1,2 +1,7 @@
+<% @coursequalifications.each do |qualification| %>
+	<li><%= qualification.name %></li>
+<% end %>
+
+
 <%= link_to 'Edit', edit_course_path(@course) %> |
 <%= link_to 'Back', institute_path %>

@@ -1,0 +1,11 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  kisaimcode: 1
+  name: MyString
+  course: one
+
+two:
+  kisaimcode: 1
+  name: MyString
+  course: two

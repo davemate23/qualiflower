@@ -22,7 +22,7 @@ namespace :import do
 		CSV.foreach(filename2, headers: true) do |row|
 
 			Institute.where(ukprn: row["UKPRN"]).update_all(pubukprn: row["PUBUKPRN"], country: row["COUNTRY"], pubukprncountry: row["PUBUKPRNCOUNTRY"], tefmark: row["TEFMARKER"], suurl: row["SUURL"], q24: row["Q24"], q24pop: row["Q24POP"], q24resp_rate: row["Q24RESP_RATE"])
-      	
+      		
  		end
 
  		puts "Updated the details of #{counter} institutes."
@@ -44,7 +44,10 @@ namespace :import do
  				image = page.image_urls.first 				
  			end
  			institute.update!(description: description, remote_image_url: image)
+ 			puts "#{institute.name} - #{institute.errors.full_messages.join(",")}" if institute.errors.any?
+ 			counter += 1 if institute.persisted?
  		end
+ 		puts "Imported the Wikipedia details of #{counter} institutes."
  	end
 
  	desc "Import locations from csv"
@@ -90,6 +93,38 @@ namespace :import do
  		end
  	end
 
+ 	desc "Associate courses with locations"
+ 	task courses: :environment do
+ 		filename = File.join(Rails.root, 'app', 'csv', 'COURSELOCATION.csv')
+ 		counter = 0
+
+ 		CSV.foreach(filename, headers: true) do |row|
+ 			courselocation = Location.find_by_locid(row['LOCID'])  	
+ 			courses = Course.where(kiscourseid: row['KISCOURSEID'], kismode: row['KISMODE']).update(location_id: courselocation)
+ 			courses.each do |course|
+ 				puts "#{course.first.title} - #{course.errors.full_messages.join(",")}" if course.errors.any?
+ 				counter += 1 if course.persisted?
+ 			end
+ 		end
+ 		puts "Added locations to #{counter} courses."
+ 	end
+
+ 	desc "Associate qualifications with courses"
+ 	task courses: :environment do
+ 		filename = File.join(Rails.root, 'app', 'csv', 'KISAIM.csv')
+ 		counter = 0
+
+ 		CSV.foreach(filename, headers: true) do |row|
+ 			courses = Course.where(kisaim: row['KISAIMCODE'])  
+ 			courses.each do |course|
+ 				Qualification.create(name: row['KISAIMLABEL'], course_id: course.id)
+ 				puts "#{course.first.title} - #{course.errors.full_messages.join(",")}" if course.errors.any?
+ 				counter += 1 if course.persisted?
+ 			end
+ 		end
+ 		puts "Added #{counter} course qualifications."
+ 	end
+
  	desc "Import continuation details from csv"
 	task courses: :environment do
  		filename = File.join(Rails.root, 'app', 'csv', 'CONTINUATION.csv')
@@ -97,8 +132,11 @@ namespace :import do
 
  		CSV.foreach(filename, headers: true) do |row|
  			continuation = Continuation.create(pubukprn: row["PUBUKPRN"], ukprn: row["UKPRN"], kiscourseid: row["KISCOURSEID"], kismode: row["CONTPOP"], contagg: row["CONTAGG"], contsbj: row["CONTSBJ"], ucont: row["UCONT"], udormant: row["UDORMANT"], ugained: row["UGAINED"], uleft: row["ULEFT"], ulower: row["ULOWER"])
- 			puts "#{continuation.id} - #{continuation.errors.full_messages.join(",")}" if continuation.errors.any?
- 			counter += 1 if continuation.persisted?
+ 			course = Course.find_by_kiscourseid(continuation.kiscourseid)
+ 			course.each do |course|
+ 				puts "#{course.title} - #{continuation.errors.full_messages.join(",")}" if continuation.errors.any?
+ 				counter += 1 if continuation.persisted?
+ 			end
  		end
  		puts "Imported #{counter} details of course continuation."
  	end
@@ -117,7 +155,8 @@ namespace :import do
 
  		CSV.foreach(filename, headers: true) do |row|
  			accreditation = Accreditation.create(pubukprn: row["PUBUKPRN"], ukprn: row["UKPRN"], kiscourse: row["KISCOURSE"], acctype: row["ACCTYPE"], kismode: row["KISMODE"], accdepend: row["ACCDEPEND"], accdependurl: row["ACCDEPENDURL"])
- 			puts "#{accreditation.kiscourse} - #{accreditation.errors.full_messages.join(",")}" if accreditation.errors.any?
+ 			course = Course.find_by_kiscourseid(accreditation.kiscourse)
+ 			puts "#{course.title} - #{accreditation.errors.full_messages.join(",")}" if accreditation.errors.any?
  			counter += 1 if accreditation.persisted?
  		end
  		puts "Imported #{counter} accreditations."
@@ -177,7 +216,7 @@ namespace :import do
  		counter = 0
 
  		CSV.foreach(filename, headers: true) do |row|
- 			job = Job.create(pubukprn: row["PUBUKPRN"], ukprn: row["UKPRN"], kiscoursid: row["KISCOURSEID"], kismode: row["KISMODE"], comsbj: row["COMSBJ"], title: row["JOB"], perc: row["PERC"], order: row["ORDER"])
+ 			job = Job.create(pubukprn: row["PUBUKPRN"], ukprn: row["UKPRN"], kiscourseid: row["KISCOURSEID"], kismode: row["KISMODE"], comsbj: row["COMSBJ"], title: row["JOB"], perc: row["PERC"], order: row["ORDER"])
  			puts "#{job.title} - #{job.errors.full_messages.join(",")}" if job.errors.any?
  			counter += 1 if job.persisted?
  		end
@@ -197,7 +236,7 @@ namespace :import do
  		counter = 0
 
  		CSV.foreach(filename, headers: true) do |row|
- 			commonjobtype = CommonJobType.create(pubukprn: row["PUBUKPRN"], ukprn: row["UKPRN"], kiscoursid: row["KISCOURSEID"], kismode: row["KISMODE"], comsbj: row["COMSBJ"], compop: row["COMPOP"], comresp_rate: row["COMRESP_RATE"], comagg: row["COMAGG"])
+ 			commonjobtype = CommonJobType.create(pubukprn: row["PUBUKPRN"], ukprn: row["UKPRN"], kiscourseid: row["KISCOURSEID"], kismode: row["KISMODE"], comsbj: row["COMSBJ"], compop: row["COMPOP"], comresp_rate: row["COMRESP_RATE"], comagg: row["COMAGG"])
  			puts "#{commonjobtype.id} - #{commonjobtype.errors.full_messages.join(",")}" if commonjobtype.errors.any?
  			counter += 1 if commonjobtype.persisted?
  		end
@@ -217,7 +256,7 @@ namespace :import do
  		counter = 0
 
  		CSV.foreach(filename, headers: true) do |row|
- 			jobtype = JobType.create(pubukprn: row["PUBUKPRN"], ukprn: row["UKPRN"], kiscoursid: row["KISCOURSEID"], kismode: row["KISMODE"], jobpop: row["JOBPOP"], jobresp_rate: row["JOBRESP_RATE"], jobagg: row["JOBAGG"], jobsbj: row["JOBSBJ"], profman: row["PROFMAN"], otherjob: row["OTHERJOB"], unkwn: ["UNKWN"])
+ 			jobtype = JobType.create(pubukprn: row["PUBUKPRN"], ukprn: row["UKPRN"], kiscourseid: row["KISCOURSEID"], kismode: row["KISMODE"], jobpop: row["JOBPOP"], jobresp_rate: row["JOBRESP_RATE"], jobagg: row["JOBAGG"], jobsbj: row["JOBSBJ"], profman: row["PROFMAN"], otherjob: row["OTHERJOB"], unkwn: ["UNKWN"])
  			puts "#{jobtype.id} - #{jobtype.errors.full_messages.join(",")}" if jobtype.errors.any?
  			counter += 1 if jobtype.persisted?
  		end
@@ -231,16 +270,294 @@ namespace :import do
  		end
  	end
 
- 	desc "Associate courses with locations"
- 	task courses: :environment do
- 		filename = File.join(Rails.root, 'app', 'csv', 'COURSELOCATION.csv')
+ 	desc "Import salaries from csv"
+	task jobs: :environment do
+ 		filename = File.join(Rails.root, 'app', 'csv', 'SALARY.csv')
  		counter = 0
 
  		CSV.foreach(filename, headers: true) do |row|
- 			courselocation = Location.where(locid: row['LOCID'])  	
- 			Course.where(kiscourseid: row['KISCOURSEID'], kismode: row['KISMODE']).update_all(location_id: courselocation)
+ 			salary = Salary.create(pubukprn: row["PUBUKPRN"], ukprn: row["UKPRN"], kiscourseid: row["KISCOURSEID"], kismode: row["KISMODE"], salpop: row["SALPOP"], salresp_rate: row["SALRESP_RATE"], salagg: row["SALAGG"], salsbj: row["SALSBJ"], ldlq: row["LDLQ"], ldmed: row["LDMED"], lduq: ["LDUQ"], lq: row["LQ"], med: row["MED"], uq: ["UQ"], instlq: row["INSTLQ"], instmed: row["INSTMED"], instuq: ["INSTUQ"])
+ 			puts "#{salary.id} - #{salary.errors.full_messages.join(",")}" if salary.errors.any?
+ 			counter += 1 if salary.persisted?
+ 		end
+ 		puts "Imported #{counter} salaries."
+ 	end
+
+ 	desc "Associate salaries with courses"
+ 	task jobs: :environment do
+ 		Course.find_each do |course|
+ 			Salary.where(kiscourseid: course.kiscourseid).update_all(course_id: course.id)
  		end
  	end
+
+ 	desc "Associate salaries with institutes"
+ 	task jobs: :environment do
+ 		Institute.find_each do |institute|
+ 			Salary.where(ukprn: institute.ukprn).update_all(institute_id: institute.id)
+ 		end
+ 	end
+
+ 	desc "Import course stages from csv"
+	task courses: :environment do
+ 		filename = File.join(Rails.root, 'app', 'csv', 'COURSESTAGE.csv')
+ 		counter = 0
+
+ 		CSV.foreach(filename, headers: true) do |row|
+ 			course_stage = CourseStage.create(pubukprn: row["PUBUKPRN"], ukprn: row["UKPRN"], kiscourseid: row["KISCOURSEID"], kismode: row["KISMODE"], assact: row["ASSACT"], coursework: row["COURSEWORK"], independent: row["INDEPENDENT"], ltact: row["LTACT"], placement: row["PLACEMENT"], practical: row["PRACTICAL"], schedule: ["SCHEDULE"], stage: row["STAGE"], written: row["WRITTEN"])
+ 			course = Course.find_by_kiscourseid(course_stage.kiscourseid)
+ 			puts "#{course.title} - #{course_stage.errors.full_messages.join(",")}" if course_stage.errors.any?
+ 			counter += 1 if course_stage.persisted?
+ 		end
+ 		puts "Imported #{counter} course stages."
+ 	end
+
+ 	desc "Associate course stages with courses"
+ 	task courses: :environment do
+ 		Course.find_each do |course|
+ 			CourseStage.where(kiscourseid: course.kiscourseid).update_all(course_id: course.id)
+ 		end
+ 	end
+
+ 	desc "Associate course stages with institutes"
+ 	task courses: :environment do
+ 		Institute.find_each do |institute|
+ 			CourseStage.where(ukprn: institute.ukprn).update_all(institute_id: institute.id)
+ 		end
+ 	end
+
+ 	desc "Import degree classes from csv"
+	task courses: :environment do
+ 		filename = File.join(Rails.root, 'app', 'csv', 'DEGREECLASS.csv')
+ 		counter = 0
+
+ 		CSV.foreach(filename, headers: true) do |row|
+ 			degree_class = DegreeClass.create(pubukprn: row["PUBUKPRN"], ukprn: row["UKPRN"], kiscourseid: row["KISCOURSEID"], kismode: row["KISMODE"], degpop: row["DEGPOP"], degagg: row["DEGAGG"], degsbj: row["DEGSBJ"], ufirst: row["UFIRST"], uupper: row["UUPPER"], ulower: row["ULOWER"], uother: ["UOTHER"], uordinary: row["UORDINARY"], udistinct: row["UDISTINCT"], umerit: row["UMERIT"], upass: row["UPASS"], una: row["UNA"])
+ 			course = Course.find_by_kiscourseid(degree_class.kiscourseid)
+ 			puts "#{course.title} - #{degree_class.errors.full_messages.join(",")}" if degree_class.errors.any?
+ 			counter += 1 if degree_class.persisted?
+ 		end
+ 		puts "Imported #{counter} course degree classes."
+ 	end
+
+ 	desc "Associate degree classes with courses"
+ 	task courses: :environment do
+ 		Course.find_each do |course|
+ 			DegreeClass.where(kiscourseid: course.kiscourseid).update_all(course_id: course.id)
+ 		end
+ 	end
+
+ 	desc "Associate degree classes with institutes"
+ 	task courses: :environment do
+ 		Institute.find_each do |institute|
+ 			DegreeClass.where(ukprn: institute.ukprn).update_all(institute_id: institute.id)
+ 		end
+ 	end
+
+ 	desc "Import employment from csv"
+	task courses: :environment do
+ 		filename = File.join(Rails.root, 'app', 'csv', 'EMPLOYMENT.csv')
+ 		counter = 0
+
+ 		CSV.foreach(filename, headers: true) do |row|
+ 			employment = Employment.create(pubukprn: row["PUBUKPRN"], ukprn: row["UKPRN"], kiscourseid: row["KISCOURSEID"], kismode: row["KISMODE"], emppop: row["EMPPOP"], empagg: row["EMPAGG"], empsbj: row["EMPSBJ"], workstudy: row["WORKSTUDY"], study: row["STUDY"], assunemp: row["ASSUNEMP"], both: ["BOTH"], noavail: row["NOAVAIL"], work: row["WORK"])
+ 			course = Course.find_by_kiscourseid(employment.kiscourseid)
+ 			puts "#{course.title} - #{employment.errors.full_messages.join(",")}" if employment.errors.any?
+ 			counter += 1 if employment.persisted?
+ 		end
+ 		puts "Imported #{counter} employment rows."
+ 	end
+
+ 	desc "Associate employment with courses"
+ 	task courses: :environment do
+ 		Course.find_each do |course|
+ 			Employment.where(kiscourseid: course.kiscourseid).update_all(course_id: course.id)
+ 		end
+ 	end
+
+ 	desc "Associate employment with institutes"
+ 	task courses: :environment do
+ 		Institute.find_each do |institute|
+ 			Employment.where(ukprn: institute.ukprn).update_all(institute_id: institute.id)
+ 		end
+ 	end
+
+
+ 	desc "Import entry qualifications from csv"
+	task courses: :environment do
+ 		filename = File.join(Rails.root, 'app', 'csv', 'ENTRY.csv')
+ 		counter = 0
+
+ 		CSV.foreach(filename, headers: true) do |row|
+ 			entry = Entry.create(pubukprn: row["PUBUKPRN"], ukprn: row["UKPRN"], kiscourseid: row["KISCOURSEID"], kismode: row["KISMODE"], entpop: row["ENTPOP"], entagg: row["ENTAGG"], entsbj: row["ENTSBJ"], access: row["ACCESS"], alevel: row["ALEVEL"], bacc: row["BACC"], degree: ["DEGREE"], foundtn: row["FOUNDTN"], noquals: row["NOQUALS"], other: row["OTHER"], otherhe: row["OTHERHE"])
+ 			course = Course.find_by_kiscourseid(entry.kiscourseid)
+ 			puts "#{course.title} - #{entry.errors.full_messages.join(",")}" if entry.errors.any?
+ 			counter += 1 if entry.persisted?
+ 		end
+ 		puts "Imported #{counter} entry qualification rows."
+ 	end
+
+ 	desc "Associate entry standards with courses"
+ 	task courses: :environment do
+ 		Course.find_each do |course|
+ 			Entry.where(kiscourseid: course.kiscourseid).update_all(course_id: course.id)
+ 		end
+ 	end
+
+ 	desc "Associate entry standards with institutes"
+ 	task courses: :environment do
+ 		Institute.find_each do |institute|
+ 			Entry.where(ukprn: institute.ukprn).update_all(institute_id: institute.id)
+ 		end
+ 	end
+
+ 	desc "Import NHS Stats from csv"
+	task courses: :environment do
+ 		filename = File.join(Rails.root, 'app', 'csv', 'NHSNSS.csv')
+ 		counter = 0
+
+ 		CSV.foreach(filename, headers: true) do |row|
+ 			nhsnss = NhsNss.create(pubukprn: row["PUBUKPRN"], ukprn: row["UKPRN"], kiscourseid: row["KISCOURSEID"], kismode: row["KISMODE"], nhspop: row["NHSPOP"], nhsagg: row["NHSAGG"], entsbj: row["NHSSBJ"], nhsq1: row["NHSQ1"], nhsq2: row["NHSQ2"], nhsq3: row["NHSQ3"], nhsq4: ["NHSQ4"], nhsq5: row["NHSQ5"], nhsq6: row["NHSQ6"])
+ 			course = Course.find_by_kiscourseid(entry.kiscourseid)
+ 			puts "#{course.title} - #{nhsnss.errors.full_messages.join(",")}" if nhsnss.errors.any?
+ 			counter += 1 if nhsnss.persisted?
+ 		end
+ 		puts "Imported #{counter} NHS stat rows."
+ 	end
+
+ 	desc "Associate NHS Stats with courses"
+ 	task courses: :environment do
+ 		Course.find_each do |course|
+ 			NhsNss.where(kiscourseid: course.kiscourseid).update_all(course_id: course.id)
+ 		end
+ 	end
+
+ 	desc "Associate NHS stats with institutes"
+ 	task courses: :environment do
+ 		Institute.find_each do |institute|
+ 			NhsNss.where(ukprn: institute.ukprn).update_all(institute_id: institute.id)
+ 		end
+ 	end
+
+ 	desc "Import NSS stats from csv"
+	task courses: :environment do
+ 		filename = File.join(Rails.root, 'app', 'csv', 'NSS.csv')
+ 		counter = 0
+
+ 		CSV.foreach(filename, headers: true) do |row|
+ 			nss = Nss.create(pubukprn: row["PUBUKPRN"], ukprn: row["UKPRN"], kiscourseid: row["KISCOURSEID"], kismode: row["KISMODE"], nsspop: row["NSSPOP"], nssagg: row["NSSAGG"], nsssbj: row["NSSSBJ"], q1: row["Q1"], q2: row["Q2"], q3: row["Q3"], q4: ["Q4"], q5: row["Q5"], q6: row["Q6"], q7: row["Q7"], q8: row["Q8"], q9: row["Q9"], q10: row["Q10"], q11: row["Q11"], q12: row["Q12"], q13: row["13"], q14: row["Q14"], q15: row["Q15"], q16: row["Q16"], q17: row["Q17"], q18: row["Q18"], q19: row["Q19"], q20: row["Q20"], q21: row["Q21"], q22: row["Q22"])
+ 			course = Course.find_by_kiscourseid(entry.kiscourseid)
+ 			puts "#{course.title} - #{nss.errors.full_messages.join(",")}" if nss.errors.any?
+ 			counter += 1 if nss.persisted?
+ 		end
+ 		puts "Imported #{counter} NSS stat rows."
+ 	end
+
+ 	desc "Associate NSS stats with courses"
+ 	task courses: :environment do
+ 		Course.find_each do |course|
+ 			Nss.where(kiscourseid: course.kiscourseid).update_all(course_id: course.id)
+ 		end
+ 	end
+
+ 	desc "Associate NSS stats with institutes"
+ 	task courses: :environment do
+ 		Institute.find_each do |institute|
+ 			Nss.where(ukprn: institute.ukprn).update_all(institute_id: institute.id)
+ 		end
+ 	end
+
+ 	desc "Import subject entities from csv"
+	task courses: :environment do
+ 		filename = File.join(Rails.root, 'app', 'csv', 'SBJ.csv')
+ 		counter = 0
+
+ 		CSV.foreach(filename, headers: true) do |row|
+ 			subject_entitity = SubjectEntity.create(pubukprn: row["PUBUKPRN"], ukprn: row["UKPRN"], kiscourseid: row["KISCOURSEID"], kismode: row["KISMODE"], sbj: row["SBJ"])
+ 			course = Course.find_by_kiscourseid(entry.kiscourseid)
+ 			puts "#{course.title} - #{subject_entity.errors.full_messages.join(",")}" if subject_entity.errors.any?
+ 			counter += 1 if subject_entity.persisted?
+ 		end
+ 		puts "Imported #{counter} subject entities rows."
+ 	end
+
+ 	desc "Associate subject entities with courses"
+ 	task courses: :environment do
+ 		Course.find_each do |course|
+ 			SubjectEntity.where(kiscourseid: course.kiscourseid).update_all(course_id: course.id)
+ 		end
+ 	end
+
+ 	desc "Associate subject entities with institutes"
+ 	task courses: :environment do
+ 		Institute.find_each do |institute|
+ 			SubjectEntity.where(ukprn: institute.ukprn).update_all(institute_id: institute.id)
+ 		end
+ 	end
+
+ 	desc "Import entry tariffs from csv"
+	task courses: :environment do
+ 		filename = File.join(Rails.root, 'app', 'csv', 'TARIFF.csv')
+ 		counter = 0
+
+ 		CSV.foreach(filename, headers: true) do |row|
+ 			tariff = Tariff.create(pubukprn: row["PUBUKPRN"], ukprn: row["UKPRN"], kiscourseid: row["KISCOURSEID"], kismode: row["KISMODE"], tarpop: row["TARPOP"], taragg: row["TARAGG"], tarsbj: row["TARSBJ"], t001: row["T001"], t048: row["T048"], t064: row["T064"], t080: row["T080"], t096: row["T096"], t112: row["T112"], t128: row["T128"], t144: row["T144"], t160: row["T160"], t176: row["T176"], t192: row["T192"], t208: row["T208"], t224: row["T224"], t240: row["T240"])
+ 			course = Course.find_by_kiscourseid(entry.kiscourseid)
+ 			puts "#{course.title} - #{tariff.errors.full_messages.join(",")}" if tariff.errors.any?
+ 			counter += 1 if tariff.persisted?
+ 		end
+ 		puts "Imported #{counter} entry tariff rows."
+ 	end
+
+ 	desc "Associate subject entities with courses"
+ 	task courses: :environment do
+ 		Course.find_each do |course|
+ 			Tariff.where(kiscourseid: course.kiscourseid).update_all(course_id: course.id)
+ 		end
+ 	end
+
+ 	desc "Associate subject entities with institutes"
+ 	task courses: :environment do
+ 		Institute.find_each do |institute|
+ 			Tariff.where(ukprn: institute.ukprn).update_all(institute_id: institute.id)
+ 		end
+ 	end
+
+ 	desc "Import UCAS codes from csv"
+	task courses: :environment do
+ 		filename = File.join(Rails.root, 'app', 'csv', 'UCASCOURSEID.csv')
+ 		counter = 0
+
+ 		CSV.foreach(filename, headers: true) do |row|
+ 			ucas = Uca.create(pubukprn: row["PUBUKPRN"], ukprn: row["UKPRN"], kiscourseid: row["KISCOURSEID"], kismode: row["KISMODE"], locid: row["locid"], ucascourseid: row["UCASCOURSEID"])
+ 			course = Course.find_by_kiscourseid(entry.kiscourseid)
+ 			puts "#{course.title} - #{ucas.errors.full_messages.join(",")}" if ucas.errors.any?
+ 			counter += 1 if ucas.persisted?
+ 		end
+ 		puts "Imported #{counter} UCAS codes."
+ 	end
+
+ 	desc "Associate UCAS codes with courses"
+ 	task courses: :environment do
+ 		Course.find_each do |course|
+ 			Uca.where(kiscourseid: course.kiscourseid).update_all(course_id: course.id)
+ 		end
+ 	end
+
+ 	desc "Associate UCAS codes with institutes"
+ 	task courses: :environment do
+ 		Location.find_each do |location|
+ 			Uca.where(locid: location.locid).update_all(location_id: location.id)
+ 		end
+ 	end
+
+ 	desc "Associate UCAS codes with locations"
+ 	task courses: :environment do
+ 		Institute.find_each do |institute|
+ 			Uca.where(ukprn: institute.ukprn).update_all(institute_id: institute.id)
+ 		end
+ 	end
+
+
 
 
 end

@@ -10,6 +10,8 @@ class CoursesController < ApplicationController
   # GET /courses/1
   # GET /courses/1.json
   def show
+    @course = Course.find(params[:id])
+    @coursequalifications = @course.qualifications
   end
 
   # GET /courses/new
@@ -69,6 +71,6 @@ class CoursesController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def course_params
-      params.require(:institute).permit(:pubukprn, :ukprn, :assurl, :crseurl, :distance, :employurl, :engfee, :feetbc, :foundation, :honours, :jacs1, :jacs2, :jacs3, :kiscourseid, :kismode, :kistype, :ldcs1, :ldcs2, :ldcs3, :level, :locchnge, :lturl, :meanssup, :nhs, :nifee, :noncreditassess, :numstage, :othsup, :relatedkis1, :relatedkis2, :relatedkis3, :sandwich, :scotfee, :supporturl, :title, :ucasprogid, :ukprnapply, :varfee, :waiver, :welsh, :yearabroad, :kisaim, :avgwritten, :avgcoursework, :image, :avgscheduled)
+      params.require(:course).permit(:pubukprn, :institute_id, :ukprn, :assurl, :crseurl, :distance, :employurl, :engfee, :feetbc, :foundation, :honours, :jacs1, :jacs2, :jacs3, :kiscourseid, :kismode, :kistype, :ldcs1, :ldcs2, :ldcs3, :level, :locchnge, :lturl, :meanssup, :nhs, :nifee, :noncreditassess, :numstage, :othsup, :relatedkis1, :relatedkis2, :relatedkis3, :sandwich, :scotfee, :supporturl, :title, :ucasprogid, :ukprnapply, :varfee, :waiver, :welsh, :yearabroad, :kisaim, :avgwritten, :avgcoursework, :location_id, :image, :avgscheduled)
     end
 end
