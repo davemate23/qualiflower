@@ -29,12 +29,15 @@ namespace :import do
  	end
 
  	desc "Import institute descriptions from Wikipedia"
- 	task institutes: :environment do
+ 	task wikipedia: :environment do
  		require 'wikipedia'
+ 		counter = 0
  		Institute.all.each do |institute|
  			school = institute.name
  			page = Wikipedia.find(school)
  			page = Wikipedia.find(school[3..-1].strip) if page.content.nil? and school[0..2].downcase == 'the'
+ 			page = Wikipedia.find(school[0..-8].strip) if page.content.nil? and school.end_with? 'Limited'
+ 			page = Wikipedia.find(school[0..-4].strip) if page.content.nil? and school.end_with? 'Ltd'
  			next if page.content.nil?
 
  			description = page.summary
@@ -102,8 +105,8 @@ namespace :import do
  			courselocation = Location.find_by_locid(row['LOCID'])  	
  			courses = Course.where(kiscourseid: row['KISCOURSEID'], kismode: row['KISMODE']).update(location_id: courselocation)
  			courses.each do |course|
- 				
- 				counter += 1 if courses.persisted?
+ 				puts "#{course.first.title} - #{course.errors.full_messages.join(",")}" if course.errors.any?
+ 				counter += 1 if course.persisted?
  			end
  		end
  		puts "Added locations to #{counter} courses."
@@ -133,10 +136,8 @@ namespace :import do
  		CSV.foreach(filename, headers: true) do |row|
  			continuation = Continuation.create(pubukprn: row["PUBUKPRN"], ukprn: row["UKPRN"], kiscourseid: row["KISCOURSEID"], kismode: row["CONTPOP"], contagg: row["CONTAGG"], contsbj: row["CONTSBJ"], ucont: row["UCONT"], udormant: row["UDORMANT"], ugained: row["UGAINED"], uleft: row["ULEFT"], ulower: row["ULOWER"])
  			course = Course.find_by_kiscourseid(continuation.kiscourseid)
- 			course.each do |course|
- 				puts "#{course.title} - #{continuation.errors.full_messages.join(",")}" if continuation.errors.any?
- 				counter += 1 if continuation.persisted?
- 			end
+ 			puts "#{course.title} - #{continuation.errors.full_messages.join(",")}" if continuation.errors.any?
+ 			counter += 1 if continuation.persisted?
  		end
  		puts "Imported #{counter} details of course continuation."
  	end
@@ -303,7 +304,7 @@ namespace :import do
  		counter = 0
 
  		CSV.foreach(filename, headers: true) do |row|
- 			course_stage = CourseStage.create(pubukprn: row["PUBUKPRN"], ukprn: row["UKPRN"], kiscourseid: row["KISCOURSEID"], kismode: row["KISMODE"], assact: row["ASSACT"], coursework: row["COURSEWORK"], independent: row["INDEPENDENT"], ltact: row["LTACT"], placement: row["PLACEMENT"], practical: row["PRACTICAL"], schedule: ["SCHEDULE"], stage: row["STAGE"], written: row["WRITTEN"])
+ 			course_stage = CourseStage.create(pubukprn: row["PUBUKPRN"], ukprn: row["UKPRN"], kiscourseid: row["KISCOURSEID"], kismode: row["KISMODE"], assact: row["ASSACT"], coursework: row["COURSEWORK"], independent: row["INDEPENDENT"], ltact: row["LTACT"], placement: row["PLACEMENT"], practical: row["PRACTICAL"], scheduled: ["SCHEDULED"], stage: row["STAGE"], written: row["WRITTEN"])
  			course = Course.find_by_kiscourseid(course_stage.kiscourseid)
  			puts "#{course.title} - #{course_stage.errors.full_messages.join(",")}" if course_stage.errors.any?
  			counter += 1 if course_stage.persisted?
@@ -331,7 +332,7 @@ namespace :import do
  		counter = 0
 
  		CSV.foreach(filename, headers: true) do |row|
- 			degree_class = DegreeClass.create(pubukprn: row["PUBUKPRN"], ukprn: row["UKPRN"], kiscourseid: row["KISCOURSEID"], kismode: row["KISMODE"], degpop: row["DEGPOP"], degagg: row["DEGAGG"], degsbj: row["DEGSBJ"], ufirst: row["UFIRST"], uupper: row["UUPPER"], ulower: row["ULOWER"], uother: ["UOTHER"], uordinary: row["UORDINARY"], udistinct: row["UDISTINCT"], umerit: row["UMERIT"], upass: row["UPASS"], una: row["UNA"])
+ 			degree_class = DegreeClass.create(pubukprn: row["PUBUKPRN"], ukprn: row["UKPRN"], kiscourseid: row["KISCOURSEID"], kismode: row["KISMODE"], degpop: row["DEGPOP"], degagg: row["DEGAGG"], degsbj: row["DEGSBJ"], ufirst: row["UFIRST"], uupper: row["UUPPER"], ulower: row["ULOWER"], uother: ["UOTHER"], uordinary: row["UORDINARY"], udistinction: row["UDISTINCTION"], umerit: row["UMERIT"], upass: row["UPASS"], una: row["UNA"])
  			course = Course.find_by_kiscourseid(degree_class.kiscourseid)
  			puts "#{course.title} - #{degree_class.errors.full_messages.join(",")}" if degree_class.errors.any?
  			counter += 1 if degree_class.persisted?
@@ -416,8 +417,8 @@ namespace :import do
  		counter = 0
 
  		CSV.foreach(filename, headers: true) do |row|
- 			nhsnss = NhsNss.create(pubukprn: row["PUBUKPRN"], ukprn: row["UKPRN"], kiscourseid: row["KISCOURSEID"], kismode: row["KISMODE"], nhspop: row["NHSPOP"], nhsagg: row["NHSAGG"], entsbj: row["NHSSBJ"], nhsq1: row["NHSQ1"], nhsq2: row["NHSQ2"], nhsq3: row["NHSQ3"], nhsq4: ["NHSQ4"], nhsq5: row["NHSQ5"], nhsq6: row["NHSQ6"])
- 			course = Course.find_by_kiscourseid(entry.kiscourseid)
+ 			nhsnss = NhsNss.create(pubukprn: row["PUBUKPRN"], ukprn: row["UKPRN"], kiscourseid: row["KISCOURSEID"], kismode: row["KISMODE"], nhspop: row["NHSPOP"], nhsagg: row["NHSAGG"], nhssbj: row["NHSSBJ"], nhsq1: row["NHSQ1"], nhsq2: row["NHSQ2"], nhsq3: row["NHSQ3"], nhsq4: ["NHSQ4"], nhsq5: row["NHSQ5"], nhsq6: row["NHSQ6"])
+ 			course = Course.find_by_kiscourseid(nhsnss.kiscourseid)
  			puts "#{course.title} - #{nhsnss.errors.full_messages.join(",")}" if nhsnss.errors.any?
  			counter += 1 if nhsnss.persisted?
  		end
@@ -445,7 +446,7 @@ namespace :import do
 
  		CSV.foreach(filename, headers: true) do |row|
  			nss = Nss.create(pubukprn: row["PUBUKPRN"], ukprn: row["UKPRN"], kiscourseid: row["KISCOURSEID"], kismode: row["KISMODE"], nsspop: row["NSSPOP"], nssagg: row["NSSAGG"], nsssbj: row["NSSSBJ"], q1: row["Q1"], q2: row["Q2"], q3: row["Q3"], q4: ["Q4"], q5: row["Q5"], q6: row["Q6"], q7: row["Q7"], q8: row["Q8"], q9: row["Q9"], q10: row["Q10"], q11: row["Q11"], q12: row["Q12"], q13: row["13"], q14: row["Q14"], q15: row["Q15"], q16: row["Q16"], q17: row["Q17"], q18: row["Q18"], q19: row["Q19"], q20: row["Q20"], q21: row["Q21"], q22: row["Q22"])
- 			course = Course.find_by_kiscourseid(entry.kiscourseid)
+ 			course = Course.find_by_kiscourseid(nss.kiscourseid)
  			puts "#{course.title} - #{nss.errors.full_messages.join(",")}" if nss.errors.any?
  			counter += 1 if nss.persisted?
  		end
@@ -473,7 +474,7 @@ namespace :import do
 
  		CSV.foreach(filename, headers: true) do |row|
  			subject_entitity = SubjectEntity.create(pubukprn: row["PUBUKPRN"], ukprn: row["UKPRN"], kiscourseid: row["KISCOURSEID"], kismode: row["KISMODE"], sbj: row["SBJ"])
- 			course = Course.find_by_kiscourseid(entry.kiscourseid)
+ 			course = Course.find_by_kiscourseid(subject.kiscourseid)
  			puts "#{course.title} - #{subject_entity.errors.full_messages.join(",")}" if subject_entity.errors.any?
  			counter += 1 if subject_entity.persisted?
  		end
@@ -501,7 +502,7 @@ namespace :import do
 
  		CSV.foreach(filename, headers: true) do |row|
  			tariff = Tariff.create(pubukprn: row["PUBUKPRN"], ukprn: row["UKPRN"], kiscourseid: row["KISCOURSEID"], kismode: row["KISMODE"], tarpop: row["TARPOP"], taragg: row["TARAGG"], tarsbj: row["TARSBJ"], t001: row["T001"], t048: row["T048"], t064: row["T064"], t080: row["T080"], t096: row["T096"], t112: row["T112"], t128: row["T128"], t144: row["T144"], t160: row["T160"], t176: row["T176"], t192: row["T192"], t208: row["T208"], t224: row["T224"], t240: row["T240"])
- 			course = Course.find_by_kiscourseid(entry.kiscourseid)
+ 			course = Course.find_by_kiscourseid(tariff.kiscourseid)
  			puts "#{course.title} - #{tariff.errors.full_messages.join(",")}" if tariff.errors.any?
  			counter += 1 if tariff.persisted?
  		end
@@ -529,7 +530,7 @@ namespace :import do
 
  		CSV.foreach(filename, headers: true) do |row|
  			ucas = Uca.create(pubukprn: row["PUBUKPRN"], ukprn: row["UKPRN"], kiscourseid: row["KISCOURSEID"], kismode: row["KISMODE"], locid: row["locid"], ucascourseid: row["UCASCOURSEID"])
- 			course = Course.find_by_kiscourseid(entry.kiscourseid)
+ 			course = Course.find_by_kiscourseid(ucas.kiscourseid)
  			puts "#{course.title} - #{ucas.errors.full_messages.join(",")}" if ucas.errors.any?
  			counter += 1 if ucas.persisted?
  		end

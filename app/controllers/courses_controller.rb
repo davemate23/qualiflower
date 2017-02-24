@@ -12,6 +12,7 @@ class CoursesController < ApplicationController
   def show
     @course = Course.find(params[:id])
     @coursequalifications = @course.qualifications
+    @new_comment = Comment.build_from(@course, current_user.id, "")
   end
 
   # GET /courses/new

@@ -18,11 +18,11 @@
 
   <div class="form-group">
     <%= f.label :password_confirmation %><br />
-    <%= f.password_field :password_confirmation, autocomplete: "off" %>
+    <%= f.password_field :password_confirmation, autocomplete: "off", class: "form-control" %>
   </div>
 
   <div class="form-group">
-    <%= f.submit "Sign up" class: "btn btn-primary" %>
+    <%= f.submit "Sign up", class: "btn btn-primary" %>
   </div>
 <% end %>
 

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170222181717) do
+ActiveRecord::Schema.define(version: 20170224112120) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -54,6 +54,22 @@ ActiveRecord::Schema.define(version: 20170222181717) do
     t.index ["acctype"], name: "index_accreditations_on_acctype", using: :btree
     t.index ["course_id"], name: "index_accreditations_on_course_id", using: :btree
     t.index ["kiscourse"], name: "index_accreditations_on_kiscourse", using: :btree
+  end
+
+  create_table "comments", force: :cascade do |t|
+    t.integer  "commentable_id"
+    t.string   "commentable_type"
+    t.string   "title"
+    t.text     "body"
+    t.string   "subject"
+    t.integer  "user_id",          null: false
+    t.integer  "parent_id"
+    t.integer  "lft"
+    t.integer  "rgt"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.index ["commentable_id", "commentable_type"], name: "index_comments_on_commentable_id_and_commentable_type", using: :btree
+    t.index ["user_id"], name: "index_comments_on_user_id", using: :btree
   end
 
   create_table "common_job_types", force: :cascade do |t|
@@ -390,10 +406,13 @@ ActiveRecord::Schema.define(version: 20170222181717) do
   create_table "reviews", force: :cascade do |t|
     t.integer  "rating"
     t.text     "comment"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.integer  "users_id"
-    t.index ["users_id"], name: "index_reviews_on_users_id", using: :btree
+    t.datetime "created_at",      null: false
+    t.datetime "updated_at",      null: false
+    t.integer  "user_id"
+    t.string   "reviewable_type"
+    t.integer  "reviewable_id"
+    t.index ["reviewable_type", "reviewable_id"], name: "index_reviews_on_reviewable_type_and_reviewable_id", using: :btree
+    t.index ["user_id"], name: "index_reviews_on_user_id", using: :btree
   end
 
   create_table "salaries", force: :cascade do |t|
@@ -523,7 +542,7 @@ ActiveRecord::Schema.define(version: 20170222181717) do
   add_foreign_key "nsses", "courses"
   add_foreign_key "nsses", "institutes"
   add_foreign_key "qualifications", "courses"
-  add_foreign_key "reviews", "users", column: "users_id"
+  add_foreign_key "reviews", "users"
   add_foreign_key "salaries", "courses"
   add_foreign_key "salaries", "institutes"
   add_foreign_key "subject_entities", "courses"

@@ -1,5 +1,5 @@
 module DeviseHelper
-	def devise_errror_messages!
+	def devise_error_messages!
 		return '' if resource.errors.empty?
 
 		messages = resource.errors.full_messages.map { |msg| content_tag(:li, message) }.join

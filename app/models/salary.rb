@@ -1,4 +1,4 @@
 class Salary < ApplicationRecord
-  belongs_to :course
-  belongs_to :institute
+  belongs_to :course, optional: true
+  belongs_to :institute, optional: true
 end

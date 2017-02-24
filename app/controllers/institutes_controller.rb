@@ -4,13 +4,15 @@ class InstitutesController < ApplicationController
   # GET /institutes
   # GET /institutes.json
   def index
-    @institutes = Institute.all
+    @institutes = Institute.page(params[:page]).per(10)
   end
 
   # GET /institutes/1
   # GET /institutes/1.json
   def show
+    @institute = Institute.find(params[:id])
     @courses = @institute.courses.all
+    @new_comment = Comment.build_from(@institute, current_user.id, "")
   end
 
   # GET /institutes/new

@@ -23,4 +23,5 @@ class Course < ApplicationRecord
 	validates :kiscourseid, uniqueness: true
 
 	mount_uploader :image, ImageUploader
+	acts_as_commentable
 end

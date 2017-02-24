@@ -40,5 +40,7 @@
   <%= @job.order %>
 </p>
 
+<%= render partial: "comments/template", locals: {commentable: @job, new_comment: @comment} %>
+
 <%= link_to 'Edit', edit_job_path(@job) %> |
 <%= link_to 'Back', jobs_path %>

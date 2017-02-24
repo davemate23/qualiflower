@@ -1,7 +1,6 @@
-<% @coursequalifications.each do |qualification| %>
-	<li><%= qualification.name %></li>
-<% end %>
+<h1><% @course.title %></h1>
 
+<%= render partial: "comments/template", locals: {commentable: @course, new_comment: @comment} %>
 
-<%= link_to 'Edit', edit_course_path(@course) %> |
+<%= link_to 'Edit', edit_institute_course_path(@course) %> |
 <%= link_to 'Back', institute_path %>

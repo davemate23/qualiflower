@@ -41,6 +41,8 @@ gem 'devise'
 gem 'fog-aws'
 gem 'figaro'
 gem 'mini_magick'
+gem 'kaminari'
+gem 'acts_as_commentable_with_threading'
 
 # Use Capistrano for deployment
 # gem 'capistrano-rails', group: :development

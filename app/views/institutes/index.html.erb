@@ -9,9 +9,7 @@
   <thead>
     <tr>
       <th>Name</th>
-      <th>Description</th>
       <th>Image</th>
-      <th>Url</th>
       <th colspan="3"></th>
     </tr>
   </thead>
@@ -19,16 +17,16 @@
   <tbody>
     <% @institutes.each do |institute| %>
       <tr>
-        <td><%= institute.name %></td>
-        <td><%= institute.description %></td>
+        <td><%= link_to institute.name, institute %></td>
         <td><%= image_tag institute.image %></td>
-        <td><%= institute.suurl %></td>
         <td><%= link_to 'Show', institute %></td>
         <td><%= link_to 'Edit', edit_institute_path(institute) %></td>
         <td><%= link_to 'Destroy', institute, method: :delete, data: { confirm: 'Are you sure?' } %></td>
       </tr>
     <% end %>
   </tbody>
+  <%= paginate @institutes %>
+  <%= page_entries_info @institutes %>
 </table>
 
 <br>
