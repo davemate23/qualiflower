@@ -473,8 +473,8 @@ namespace :import do
  		counter = 0
 
  		CSV.foreach(filename, headers: true) do |row|
- 			subject_entitity = SubjectEntity.create(pubukprn: row["PUBUKPRN"], ukprn: row["UKPRN"], kiscourseid: row["KISCOURSEID"], kismode: row["KISMODE"], sbj: row["SBJ"])
- 			course = Course.find_by_kiscourseid(subject.kiscourseid)
+ 			subject_entity = SubjectEntity.create(pubukprn: row["PUBUKPRN"], ukprn: row["UKPRN"], kiscourseid: row["KISCOURSEID"], kismode: row["KISMODE"], sbj: row["SBJ"])
+ 			course = Course.find_by_kiscourseid(subject_entity.kiscourseid)
  			puts "#{course.title} - #{subject_entity.errors.full_messages.join(",")}" if subject_entity.errors.any?
  			counter += 1 if subject_entity.persisted?
  		end

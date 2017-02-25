@@ -43,6 +43,7 @@ gem 'figaro'
 gem 'mini_magick'
 gem 'kaminari'
 gem 'acts_as_commentable_with_threading'
+gem 'searchkick'
 
 # Use Capistrano for deployment
 # gem 'capistrano-rails', group: :development
