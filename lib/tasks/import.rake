@@ -29,7 +29,7 @@ namespace :import do
  	end
 
  	desc "Import institute descriptions from Wikipedia"
- 	task wikipedia: :environment do
+ 	task institutes: :environment do
  		require 'wikipedia'
  		counter = 0
  		Institute.all.each do |institute|
