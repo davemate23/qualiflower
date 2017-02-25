@@ -5,7 +5,7 @@ class CreateLocations < ActiveRecord::Migration[5.0]
       t.text :name
       t.decimal :lat
       t.decimal :long
-      t.string :locid, index: true
+      t.string :locid
       t.string :locukprn
       t.string :loccountry
       t.integer :privatelower
@@ -15,7 +15,7 @@ class CreateLocations < ActiveRecord::Migration[5.0]
       t.integer :instbeds
       t.integer :instlower
       t.integer :instupper
-      t.references :institute, foreign_key: true, index: true
+      t.references :institute, foreign_key: true
 
       t.timestamps
     end
