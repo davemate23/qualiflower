@@ -41,15 +41,16 @@ namespace :import do
  			next if page.content.nil?
 
  			description = page.summary
- 			if page.image_urls.first == "https://upload.wikimedia.org/wikipedia/en/4/4a/Commons-logo.svg" 
- 				image = page.image_urls.last
- 			else
- 				image = page.image_urls.first 				
- 			end
+ 			
+ 			accepted_formats = [".jpg", ".png", ".gif"]
+ 			images = page.image_urls 
+ 			image = first_valid_image(images, accepted_formats)
+
  			institute.update!(description: description, remote_image_url: image)
  			puts "#{institute.name} - #{institute.errors.full_messages.join(",")}" if institute.errors.any?
  			counter += 1 if institute.persisted?
  		end
+
  		puts "Imported the Wikipedia details of #{counter} institutes."
  	end
 
@@ -558,7 +559,9 @@ namespace :import do
  		end
  	end
 
-
-
-
+ 	def first_valid_image(images, accepted_formats)
+ 			images.find do |image|
+ 				File.extname(image).in? accepted_formats
+ 			end
+ 	end
 end
