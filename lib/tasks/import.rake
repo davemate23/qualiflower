@@ -356,7 +356,7 @@ namespace :import do
  	end
 
  	desc "Import employment from csv"
-	task courses: :environment do
+	task courses2: :environment do
  		filename = File.join(Rails.root, 'app', 'csv', 'EMPLOYMENT.csv')
  		counter = 0
 
@@ -370,14 +370,14 @@ namespace :import do
  	end
 
  	desc "Associate employment with courses"
- 	task courses: :environment do
+ 	task courses2: :environment do
  		Course.find_each do |course|
  			Employment.where(kiscourseid: course.kiscourseid).update_all(course_id: course.id)
  		end
  	end
 
  	desc "Associate employment with institutes"
- 	task courses: :environment do
+ 	task courses2: :environment do
  		Institute.find_each do |institute|
  			Employment.where(ukprn: institute.ukprn).update_all(institute_id: institute.id)
  		end
@@ -385,7 +385,7 @@ namespace :import do
 
 
  	desc "Import entry qualifications from csv"
-	task courses: :environment do
+	task courses2: :environment do
  		filename = File.join(Rails.root, 'app', 'csv', 'ENTRY.csv')
  		counter = 0
 
@@ -399,21 +399,21 @@ namespace :import do
  	end
 
  	desc "Associate entry standards with courses"
- 	task courses: :environment do
+ 	task courses2: :environment do
  		Course.find_each do |course|
  			Entry.where(kiscourseid: course.kiscourseid).update_all(course_id: course.id)
  		end
  	end
 
  	desc "Associate entry standards with institutes"
- 	task courses: :environment do
+ 	task courses2: :environment do
  		Institute.find_each do |institute|
  			Entry.where(ukprn: institute.ukprn).update_all(institute_id: institute.id)
  		end
  	end
 
  	desc "Import NHS Stats from csv"
-	task courses: :environment do
+	task courses2: :environment do
  		filename = File.join(Rails.root, 'app', 'csv', 'NHSNSS.csv')
  		counter = 0
 
@@ -427,21 +427,21 @@ namespace :import do
  	end
 
  	desc "Associate NHS Stats with courses"
- 	task courses: :environment do
+ 	task courses2: :environment do
  		Course.find_each do |course|
  			NhsNss.where(kiscourseid: course.kiscourseid).update_all(course_id: course.id)
  		end
  	end
 
  	desc "Associate NHS stats with institutes"
- 	task courses: :environment do
+ 	task courses2: :environment do
  		Institute.find_each do |institute|
  			NhsNss.where(ukprn: institute.ukprn).update_all(institute_id: institute.id)
  		end
  	end
 
  	desc "Import NSS stats from csv"
-	task courses: :environment do
+	task courses2: :environment do
  		filename = File.join(Rails.root, 'app', 'csv', 'NSS.csv')
  		counter = 0
 
@@ -455,21 +455,21 @@ namespace :import do
  	end
 
  	desc "Associate NSS stats with courses"
- 	task courses: :environment do
+ 	task courses2: :environment do
  		Course.find_each do |course|
  			Nss.where(kiscourseid: course.kiscourseid).update_all(course_id: course.id)
  		end
  	end
 
  	desc "Associate NSS stats with institutes"
- 	task courses: :environment do
+ 	task courses2: :environment do
  		Institute.find_each do |institute|
  			Nss.where(ukprn: institute.ukprn).update_all(institute_id: institute.id)
  		end
  	end
 
  	desc "Import subject entities from csv"
-	task courses: :environment do
+	task courses2: :environment do
  		filename = File.join(Rails.root, 'app', 'csv', 'SBJ.csv')
  		counter = 0
 
@@ -483,21 +483,21 @@ namespace :import do
  	end
 
  	desc "Associate subject entities with courses"
- 	task courses: :environment do
+ 	task courses2: :environment do
  		Course.find_each do |course|
  			SubjectEntity.where(kiscourseid: course.kiscourseid).update_all(course_id: course.id)
  		end
  	end
 
  	desc "Associate subject entities with institutes"
- 	task courses: :environment do
+ 	task courses2: :environment do
  		Institute.find_each do |institute|
  			SubjectEntity.where(ukprn: institute.ukprn).update_all(institute_id: institute.id)
  		end
  	end
 
  	desc "Import entry tariffs from csv"
-	task courses: :environment do
+	task courses2: :environment do
  		filename = File.join(Rails.root, 'app', 'csv', 'TARIFF.csv')
  		counter = 0
 
@@ -511,21 +511,21 @@ namespace :import do
  	end
 
  	desc "Associate subject entities with courses"
- 	task courses: :environment do
+ 	task courses2: :environment do
  		Course.find_each do |course|
  			Tariff.where(kiscourseid: course.kiscourseid).update_all(course_id: course.id)
  		end
  	end
 
  	desc "Associate subject entities with institutes"
- 	task courses: :environment do
+ 	task courses2: :environment do
  		Institute.find_each do |institute|
  			Tariff.where(ukprn: institute.ukprn).update_all(institute_id: institute.id)
  		end
  	end
 
  	desc "Import UCAS codes from csv"
-	task courses: :environment do
+	task courses2: :environment do
  		filename = File.join(Rails.root, 'app', 'csv', 'UCASCOURSEID.csv')
  		counter = 0
 
@@ -539,21 +539,21 @@ namespace :import do
  	end
 
  	desc "Associate UCAS codes with courses"
- 	task courses: :environment do
+ 	task courses2: :environment do
  		Course.find_each do |course|
  			Uca.where(kiscourseid: course.kiscourseid).update_all(course_id: course.id)
  		end
  	end
 
  	desc "Associate UCAS codes with institutes"
- 	task courses: :environment do
+ 	task courses2: :environment do
  		Location.find_each do |location|
  			Uca.where(locid: location.locid).update_all(location_id: location.id)
  		end
  	end
 
  	desc "Associate UCAS codes with locations"
- 	task courses: :environment do
+ 	task courses2: :environment do
  		Institute.find_each do |institute|
  			Uca.where(ukprn: institute.ukprn).update_all(institute_id: institute.id)
  		end
