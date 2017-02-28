@@ -238,7 +238,7 @@ namespace :import do
  		counter = 0
 
  		CSV.foreach(filename, headers: true) do |row|
- 			commonjobtype = CommonJobType.create(pubukprn: row["PUBUKPRN"], ukprn: row["UKPRN"], kiscourseid: row["KISCOURSEID"], kismode: row["KISMODE"], comsbj: row["COMSBJ"], compop: row["COMPOP"], comresp_rate: row["COMRESP_RATE"], comagg: row["COMAGG"])
+ 			commonjobtype = CommonJobType.create(pubukprn: row["PUBUKPRN"], ukprn: row["UKPRN"], kiscoursid: row["KISCOURSEID"], kismode: row["KISMODE"], comsbj: row["COMSBJ"], compop: row["COMPOP"], comresp_rate: row["COMRESP_RATE"], comagg: row["COMAGG"])
  			puts "#{commonjobtype.id} - #{commonjobtype.errors.full_messages.join(",")}" if commonjobtype.errors.any?
  			counter += 1 if commonjobtype.persisted?
  		end
@@ -248,7 +248,7 @@ namespace :import do
  	desc "Associate common job types with courses"
  	task jobs: :environment do
  		Course.find_each do |course|
- 			CommonJobType.where(kiscourseid: course.kiscourseid).update_all(course_id: course.id)
+ 			CommonJobType.where(kiscoursid: course.kiscourseid).update_all(course_id: course.id)
  		end
  	end
 
