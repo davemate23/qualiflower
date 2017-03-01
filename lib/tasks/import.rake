@@ -226,14 +226,14 @@ namespace :import do
  	end
 
  	desc "Associate jobs with courses"
- 	task jobs: :environment do
+ 	task jobs1: :environment do
  		Course.find_each do |course|
  			Job.where(kiscourseid: course.kiscourseid).update_all(course_id: course.id)
  		end
  	end
 
  	desc "Import common job types from csv"
-	task jobs: :environment do
+	task jobs2: :environment do
  		filename = File.join(Rails.root, 'app', 'csv', 'COMMON.csv')
  		counter = 0
 
@@ -246,14 +246,14 @@ namespace :import do
  	end
 
  	desc "Associate common job types with courses"
- 	task jobs: :environment do
+ 	task jobs2: :environment do
  		Course.find_each do |course|
  			CommonJobType.where(kiscoursid: course.kiscourseid).update_all(course_id: course.id)
  		end
  	end
 
  	desc "Import profession types from csv"
-	task jobs: :environment do
+	task jobs2: :environment do
  		filename = File.join(Rails.root, 'app', 'csv', 'JOBTYPE.csv')
  		counter = 0
 
@@ -266,14 +266,14 @@ namespace :import do
  	end
 
  	desc "Associate profession types with courses"
- 	task jobs: :environment do
+ 	task jobs2: :environment do
  		Course.find_each do |course|
  			JobType.where(kiscourseid: course.kiscourseid).update_all(course_id: course.id)
  		end
  	end
 
  	desc "Import salaries from csv"
-	task jobs: :environment do
+	task jobs2: :environment do
  		filename = File.join(Rails.root, 'app', 'csv', 'SALARY.csv')
  		counter = 0
 
@@ -286,14 +286,14 @@ namespace :import do
  	end
 
  	desc "Associate salaries with courses"
- 	task jobs: :environment do
+ 	task jobs2: :environment do
  		Course.find_each do |course|
  			Salary.where(kiscourseid: course.kiscourseid).update_all(course_id: course.id)
  		end
  	end
 
  	desc "Associate salaries with institutes"
- 	task jobs: :environment do
+ 	task jobs2: :environment do
  		Institute.find_each do |institute|
  			Salary.where(ukprn: institute.ukprn).update_all(institute_id: institute.id)
  		end
