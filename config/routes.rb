@@ -2,7 +2,6 @@ Rails.application.routes.draw do
 	
   devise_for :users
   resources :jobs
-  resources :comments
   resources :accreditations
   resources :locations
   get "/pages/*page" => "pages#show"
