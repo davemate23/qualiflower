@@ -5,26 +5,18 @@
   <h3>Click a school for more information</h3>
 </div>
 
-<table>
-  <thead>
-    <tr>
-      <th>Name</th>
-      <th>Image</th>
-      <th colspan="3"></th>
-    </tr>
-  </thead>
-
-  <tbody>
-    <% @institutes.each do |institute| %>
-      <tr>
-        <td><%= link_to institute.name, institute %></td>
-        <td><%= image_tag institute.image %></td>
-        <td><%= link_to 'Show', institute %></td>
-        <td><%= link_to 'Edit', edit_institute_path(institute) %></td>
-        <td><%= link_to 'Destroy', institute, method: :delete, data: { confirm: 'Are you sure?' } %></td>
-      </tr>
-    <% end %>
-  </tbody>
+<div class="list-group">
+  <% @institutes.each do |institute| %>
+    <div class="list-group-item list-group-item-action d-flex justify-content-start">
+        <div class="p-2">
+          <h5 class="mb-1"><%= link_to institute.name, institute %></h5>
+        </div>
+        <div class="ml-auto p-2">
+          <%= image_tag(institute.image_url(:thumb), size: 50) if institute.image? %>
+        </div>
+    </div>
+  <% end %>
+</div>
   <%= paginate @institutes %>
   <%= page_entries_info @institutes %>
 </table>

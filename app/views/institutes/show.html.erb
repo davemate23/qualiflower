@@ -45,8 +45,10 @@
     </div>
   </div>
   <div class="col-md-4">
-    <%= render partial: "comments/template", locals: {commentable: @institute, new_comment: @comment} %>
+    <%= render "comments/form" %>
+    <%= nested_comments @comments %>
   </div>
+
 
   <%= link_to 'Edit', edit_institute_path(@institute) %> |
   <%= link_to 'Back', institutes_path %>

@@ -5,6 +5,6 @@ class Institute < ApplicationRecord
 	validates :ukprn, uniqueness: true
 
 	mount_uploader :image, ImageUploader
-	acts_as_commentable	
+	has_many :comments, as: :commentable, dependent: :destroy
 
 end

@@ -42,8 +42,7 @@ gem 'fog-aws'
 gem 'figaro'
 gem 'mini_magick'
 gem 'kaminari'
-gem 'acts_as_commentable_with_threading'
-gem 'searchkick'
+gem 'ancestry'
 
 # Use Capistrano for deployment
 # gem 'capistrano-rails', group: :development

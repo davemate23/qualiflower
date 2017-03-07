@@ -1,5 +1,6 @@
 class CoursesController < ApplicationController
   before_action :set_course, only: [:show, :edit, :update, :destroy]
+  include Qualiflower::Commentable
 
   # GET /courses
   # GET /courses.json
@@ -12,7 +13,6 @@ class CoursesController < ApplicationController
   def show
     @course = Course.find(params[:id])
     @coursequalifications = @course.qualifications
-    @new_comment = Comment.build_from(@course, current_user.id, "")
   end
 
   # GET /courses/new

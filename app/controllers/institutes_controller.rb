@@ -1,5 +1,6 @@
 class InstitutesController < ApplicationController
   before_action :set_institute, only: [:show, :edit, :update, :destroy]
+  include Qualiflower::Commentable
 
   # GET /institutes
   # GET /institutes.json
@@ -12,7 +13,6 @@ class InstitutesController < ApplicationController
   def show
     @institute = Institute.find(params[:id])
     @courses = @institute.courses.all
-    @new_comment = Comment.build_from(@institute, current_user.id, "")
   end
 
   # GET /institutes/new

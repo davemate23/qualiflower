@@ -19,10 +19,10 @@ class Course < ApplicationRecord
 	has_many :subject_entities
 	has_many :tariffs
 	has_many :ucas
+	has_many :comments, as: :commentable, dependent: :destroy
 
 	validates :kiscourseid, uniqueness: true
 
-	mount_uploader :image, ImageUploader
-	acts_as_commentable
 
+	mount_uploader :image, ImageUploader
 end
