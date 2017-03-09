@@ -1,0 +1,77 @@
+<%= form_for(job_profile) do |f| %>
+  <% if job_profile.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(job_profile.errors.count, "error") %> prohibited this job_profile from being saved:</h2>
+
+      <ul>
+      <% job_profile.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= f.label :title %>
+    <%= f.text_field :title %>
+  </div>
+
+  <div class="field">
+    <%= f.label :alternativeernative %>
+    <%= f.text_field :alternativeernative %>
+  </div>
+
+  <div class="field">
+    <%= f.label :description %>
+    <%= f.text_area :description %>
+  </div>
+
+  <div class="field">
+    <%= f.label :pay %>
+    <%= f.text_field :pay %>
+  </div>
+
+  <div class="field">
+    <%= f.label :hours %>
+    <%= f.text_field :hours %>
+  </div>
+
+  <div class="field">
+    <%= f.label :entry %>
+    <%= f.text_area :entry %>
+  </div>
+
+  <div class="field">
+    <%= f.label :skills %>
+    <%= f.text_area :skills %>
+  </div>
+
+  <div class="field">
+    <%= f.label :duties %>
+    <%= f.text_area :duties %>
+  </div>
+
+  <div class="field">
+    <%= f.label :salary %>
+    <%= f.text_area :salary %>
+  </div>
+
+  <div class="field">
+    <%= f.label :working_hours %>
+    <%= f.text_area :working_hours %>
+  </div>
+
+  <div class="field">
+    <%= f.label :career_path %>
+    <%= f.text_area :career_path %>
+  </div>
+
+  <div class="field">
+    <%= f.label :related %>
+    <%= f.text_area :related %>
+  </div>
+
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>

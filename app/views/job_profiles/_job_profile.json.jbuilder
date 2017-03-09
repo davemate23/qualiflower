@@ -1,0 +1,2 @@
+json.extract! job_profile, :id, :title, :alternativeernative, :description, :pay, :hours, :entry, :skills, :duties, :salary, :working_hours, :career_path, :related, :created_at, :updated_at
+json.url job_profile_url(job_profile, format: :json)

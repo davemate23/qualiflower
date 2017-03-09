@@ -1,0 +1,37 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Name:</strong>
+  <%= @job_category.name %>
+</p>
+
+<p>
+  <strong>Description:</strong>
+  <%= @job_category.description %>
+</p>
+
+<% if @job_category.entry.present? %>
+<p>
+  <strong>Entry:</strong>
+  <%= @job_category.entry %>
+</p>
+<% end %>
+
+
+<% if @job_category.tasks.present? %>
+<p>
+  <strong>Tasks:</strong>
+  <%= @job_category.tasks %>
+</p>
+<% end %>
+
+<% if @job_category.related.present? %>
+<p>
+  <strong>Related:</strong>
+  <%= @job_category.related %>
+</p>
+<% end %>
+
+
+<%= link_to 'Edit', edit_job_category_path(@job_category) %> |
+<%= link_to 'Back', job_categories_path %>

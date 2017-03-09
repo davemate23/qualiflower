@@ -1,0 +1,49 @@
+<p id="notice"><%= notice %></p>
+
+<h1>Job Profiles</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Title</th>
+      <th>Alternativeernative</th>
+      <th>Description</th>
+      <th>Pay</th>
+      <th>Hours</th>
+      <th>Entry</th>
+      <th>Skills</th>
+      <th>Duties</th>
+      <th>Salary</th>
+      <th>Working hours</th>
+      <th>Career path</th>
+      <th>Related</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @job_profiles.each do |job_profile| %>
+      <tr>
+        <td><%= job_profile.title %></td>
+        <td><%= job_profile.alternativeernative %></td>
+        <td><%= job_profile.description %></td>
+        <td><%= job_profile.pay %></td>
+        <td><%= job_profile.hours %></td>
+        <td><%= job_profile.entry %></td>
+        <td><%= job_profile.skills %></td>
+        <td><%= job_profile.duties %></td>
+        <td><%= job_profile.salary %></td>
+        <td><%= job_profile.working_hours %></td>
+        <td><%= job_profile.career_path %></td>
+        <td><%= job_profile.related %></td>
+        <td><%= link_to 'Show', job_profile %></td>
+        <td><%= link_to 'Edit', edit_job_profile_path(job_profile) %></td>
+        <td><%= link_to 'Destroy', job_profile, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Job Profile', new_job_profile_path %>

@@ -1,5 +1,7 @@
 Rails.application.routes.draw do
 	
+  resources :job_profiles
+  resources :job_categories
   devise_for :users
   resources :jobs
   resources :accreditations

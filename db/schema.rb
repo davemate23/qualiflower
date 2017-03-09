@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170306080801) do
+ActiveRecord::Schema.define(version: 20170308114713) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -269,6 +269,35 @@ ActiveRecord::Schema.define(version: 20170306080801) do
     t.integer  "q24"
     t.integer  "q24pop"
     t.integer  "q24resp_rate"
+  end
+
+  create_table "job_categories", force: :cascade do |t|
+    t.string   "name"
+    t.text     "description"
+    t.text     "entry"
+    t.text     "tasks"
+    t.text     "related"
+    t.integer  "parent_id"
+    t.datetime "created_at",  null: false
+    t.datetime "updated_at",  null: false
+    t.index ["parent_id"], name: "index_job_categories_on_parent_id", using: :btree
+  end
+
+  create_table "job_profiles", force: :cascade do |t|
+    t.string   "title"
+    t.string   "alternativeernative"
+    t.text     "description"
+    t.string   "pay"
+    t.string   "hours"
+    t.text     "entry"
+    t.text     "skills"
+    t.text     "duties"
+    t.text     "salary"
+    t.text     "working_hours"
+    t.text     "career_path"
+    t.text     "related"
+    t.datetime "created_at",          null: false
+    t.datetime "updated_at",          null: false
   end
 
   create_table "job_types", force: :cascade do |t|
