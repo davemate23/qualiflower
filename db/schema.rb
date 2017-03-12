@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170308114713) do
+ActiveRecord::Schema.define(version: 20170312042913) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -21,10 +21,10 @@ ActiveRecord::Schema.define(version: 20170308114713) do
     t.string   "hep"
     t.string   "kiscoursetitle"
     t.string   "kiscourseid"
-    t.integer  "course_id"
+    t.integer  "course_stat_id"
     t.datetime "created_at",     null: false
     t.datetime "updated_at",     null: false
-    t.index ["course_id"], name: "index_accreditation_by_courses_on_course_id", using: :btree
+    t.index ["course_stat_id"], name: "index_accreditation_by_courses_on_course_stat_id", using: :btree
   end
 
   create_table "accreditation_details", force: :cascade do |t|
@@ -48,11 +48,11 @@ ActiveRecord::Schema.define(version: 20170308114713) do
     t.integer  "kismode"
     t.integer  "accdepend"
     t.string   "accdependurl"
-    t.integer  "course_id"
-    t.datetime "created_at",   null: false
-    t.datetime "updated_at",   null: false
+    t.integer  "course_stat_id"
+    t.datetime "created_at",     null: false
+    t.datetime "updated_at",     null: false
     t.index ["acctype"], name: "index_accreditations_on_acctype", using: :btree
-    t.index ["course_id"], name: "index_accreditations_on_course_id", using: :btree
+    t.index ["course_stat_id"], name: "index_accreditations_on_course_stat_id", using: :btree
     t.index ["kiscourse"], name: "index_accreditations_on_kiscourse", using: :btree
   end
 
@@ -78,10 +78,10 @@ ActiveRecord::Schema.define(version: 20170308114713) do
     t.integer  "comresp_rate"
     t.integer  "comagg"
     t.string   "comsbj"
-    t.integer  "course_id"
-    t.datetime "created_at",   null: false
-    t.datetime "updated_at",   null: false
-    t.index ["course_id"], name: "index_common_job_types_on_course_id", using: :btree
+    t.integer  "course_stat_id"
+    t.datetime "created_at",     null: false
+    t.datetime "updated_at",     null: false
+    t.index ["course_stat_id"], name: "index_common_job_types_on_course_stat_id", using: :btree
   end
 
   create_table "continuations", force: :cascade do |t|
@@ -96,11 +96,11 @@ ActiveRecord::Schema.define(version: 20170308114713) do
     t.integer  "udormant"
     t.integer  "ugained"
     t.integer  "uleft"
-    t.integer  "course_id"
-    t.datetime "created_at",  null: false
-    t.datetime "updated_at",  null: false
+    t.integer  "course_stat_id"
+    t.datetime "created_at",     null: false
+    t.datetime "updated_at",     null: false
     t.integer  "ulower"
-    t.index ["course_id"], name: "index_continuations_on_course_id", using: :btree
+    t.index ["course_stat_id"], name: "index_continuations_on_course_stat_id", using: :btree
   end
 
   create_table "course_stages", force: :cascade do |t|
@@ -117,22 +117,17 @@ ActiveRecord::Schema.define(version: 20170308114713) do
     t.integer  "scheduled"
     t.integer  "stage"
     t.integer  "written"
-    t.integer  "course_id"
+    t.integer  "course_stat_id"
     t.integer  "institute_id"
-    t.datetime "created_at",   null: false
-    t.datetime "updated_at",   null: false
-    t.index ["course_id"], name: "index_course_stages_on_course_id", using: :btree
+    t.datetime "created_at",     null: false
+    t.datetime "updated_at",     null: false
+    t.index ["course_stat_id"], name: "index_course_stages_on_course_stat_id", using: :btree
     t.index ["institute_id"], name: "index_course_stages_on_institute_id", using: :btree
   end
 
-  create_table "courses", force: :cascade do |t|
+  create_table "course_stats", force: :cascade do |t|
     t.string   "title"
-    t.text     "description"
-    t.decimal  "engfee"
-    t.string   "url"
-    t.integer  "institute_id"
-    t.datetime "created_at",      null: false
-    t.datetime "updated_at",      null: false
+    t.integer  "engfee"
     t.string   "pubukprn"
     t.string   "ukprn"
     t.string   "assurl"
@@ -177,9 +172,35 @@ ActiveRecord::Schema.define(version: 20170308114713) do
     t.integer  "avgwritten"
     t.integer  "avgcoursework"
     t.integer  "avgscheduled"
-    t.string   "image"
     t.integer  "location_id"
+    t.integer  "institute_id"
+    t.integer  "course_id"
+    t.datetime "created_at",      null: false
+    t.datetime "updated_at",      null: false
+    t.index ["course_id"], name: "index_course_stats_on_course_id", using: :btree
+    t.index ["institute_id"], name: "index_course_stats_on_institute_id", using: :btree
+    t.index ["kiscourseid"], name: "index_course_stats_on_kiscourseid", using: :btree
+    t.index ["location_id"], name: "index_course_stats_on_location_id", using: :btree
+    t.index ["ucasprogid"], name: "index_course_stats_on_ucasprogid", using: :btree
+    t.index ["ukprn"], name: "index_course_stats_on_ukprn", using: :btree
+  end
+
+  create_table "courses", force: :cascade do |t|
+    t.string   "title"
+    t.integer  "location_id"
+    t.integer  "institute_id"
+    t.datetime "created_at",         null: false
+    t.datetime "updated_at",         null: false
+    t.string   "image"
+    t.text     "description"
+    t.string   "duration"
+    t.string   "mode_of_study"
+    t.string   "string"
+    t.text     "contact_details"
+    t.text     "entry_requirements"
+    t.text     "future_careers"
     t.index ["institute_id"], name: "index_courses_on_institute_id", using: :btree
+    t.index ["location_id"], name: "index_courses_on_location_id", using: :btree
   end
 
   create_table "degree_classes", force: :cascade do |t|
@@ -199,11 +220,11 @@ ActiveRecord::Schema.define(version: 20170308114713) do
     t.integer  "umerit"
     t.integer  "upass"
     t.integer  "una"
-    t.integer  "course_id"
+    t.integer  "course_stat_id"
     t.integer  "institute_id"
-    t.datetime "created_at",   null: false
-    t.datetime "updated_at",   null: false
-    t.index ["course_id"], name: "index_degree_classes_on_course_id", using: :btree
+    t.datetime "created_at",     null: false
+    t.datetime "updated_at",     null: false
+    t.index ["course_stat_id"], name: "index_degree_classes_on_course_stat_id", using: :btree
     t.index ["institute_id"], name: "index_degree_classes_on_institute_id", using: :btree
   end
 
@@ -222,11 +243,11 @@ ActiveRecord::Schema.define(version: 20170308114713) do
     t.integer  "both"
     t.integer  "noavail"
     t.integer  "work"
-    t.integer  "course_id"
+    t.integer  "course_stat_id"
     t.integer  "institute_id"
-    t.datetime "created_at",   null: false
-    t.datetime "updated_at",   null: false
-    t.index ["course_id"], name: "index_employments_on_course_id", using: :btree
+    t.datetime "created_at",     null: false
+    t.datetime "updated_at",     null: false
+    t.index ["course_stat_id"], name: "index_employments_on_course_stat_id", using: :btree
     t.index ["institute_id"], name: "index_employments_on_institute_id", using: :btree
   end
 
@@ -246,11 +267,11 @@ ActiveRecord::Schema.define(version: 20170308114713) do
     t.integer  "noquals"
     t.integer  "other"
     t.integer  "otherhe"
-    t.integer  "course_id"
+    t.integer  "course_stat_id"
     t.integer  "institute_id"
-    t.datetime "created_at",   null: false
-    t.datetime "updated_at",   null: false
-    t.index ["course_id"], name: "index_entries_on_course_id", using: :btree
+    t.datetime "created_at",     null: false
+    t.datetime "updated_at",     null: false
+    t.index ["course_stat_id"], name: "index_entries_on_course_stat_id", using: :btree
     t.index ["institute_id"], name: "index_entries_on_institute_id", using: :btree
   end
 
@@ -300,6 +321,23 @@ ActiveRecord::Schema.define(version: 20170308114713) do
     t.datetime "updated_at",          null: false
   end
 
+  create_table "job_stats", force: :cascade do |t|
+    t.text     "title"
+    t.string   "pubukprn"
+    t.string   "ukprn"
+    t.string   "kiscourseid"
+    t.integer  "kismode"
+    t.string   "comsbj"
+    t.integer  "perc"
+    t.integer  "order"
+    t.integer  "course_id"
+    t.integer  "job_id"
+    t.datetime "created_at",  null: false
+    t.datetime "updated_at",  null: false
+    t.index ["course_id"], name: "index_job_stats_on_course_id", using: :btree
+    t.index ["job_id"], name: "index_job_stats_on_job_id", using: :btree
+  end
+
   create_table "job_types", force: :cascade do |t|
     t.string   "pubukprn"
     t.string   "ukprn"
@@ -312,26 +350,30 @@ ActiveRecord::Schema.define(version: 20170308114713) do
     t.integer  "profman"
     t.integer  "otherjob"
     t.integer  "unkwn"
-    t.integer  "course_id"
-    t.datetime "created_at",   null: false
-    t.datetime "updated_at",   null: false
-    t.index ["course_id"], name: "index_job_types_on_course_id", using: :btree
+    t.integer  "course_stat_id"
+    t.datetime "created_at",     null: false
+    t.datetime "updated_at",     null: false
+    t.index ["course_stat_id"], name: "index_job_types_on_course_stat_id", using: :btree
   end
 
   create_table "jobs", force: :cascade do |t|
     t.text     "title"
-    t.string   "pubukprn"
-    t.string   "ukprn"
-    t.string   "kiscourseid"
-    t.integer  "kismode"
-    t.string   "comsbj"
-    t.integer  "perc"
-    t.integer  "order"
-    t.integer  "course_id"
-    t.datetime "created_at",  null: false
-    t.datetime "updated_at",  null: false
+    t.integer  "course_stat_id"
+    t.datetime "created_at",          null: false
+    t.datetime "updated_at",          null: false
     t.string   "image"
-    t.index ["course_id"], name: "index_jobs_on_course_id", using: :btree
+    t.string   "alternativeernative"
+    t.text     "description"
+    t.string   "pay"
+    t.string   "hours"
+    t.text     "entry"
+    t.text     "skills"
+    t.text     "duties"
+    t.text     "salary"
+    t.text     "working_hours"
+    t.text     "career_path"
+    t.text     "related"
+    t.index ["course_stat_id"], name: "index_jobs_on_course_stat_id", using: :btree
   end
 
   create_table "locations", force: :cascade do |t|
@@ -373,11 +415,11 @@ ActiveRecord::Schema.define(version: 20170308114713) do
     t.integer  "nhsq4"
     t.integer  "nhsq5"
     t.integer  "nhsq6"
-    t.integer  "course_id"
+    t.integer  "course_stat_id"
     t.integer  "institute_id"
-    t.datetime "created_at",   null: false
-    t.datetime "updated_at",   null: false
-    t.index ["course_id"], name: "index_nhs_nsses_on_course_id", using: :btree
+    t.datetime "created_at",     null: false
+    t.datetime "updated_at",     null: false
+    t.index ["course_stat_id"], name: "index_nhs_nsses_on_course_stat_id", using: :btree
     t.index ["institute_id"], name: "index_nhs_nsses_on_institute_id", using: :btree
   end
 
@@ -412,33 +454,21 @@ ActiveRecord::Schema.define(version: 20170308114713) do
     t.integer  "q20"
     t.integer  "q21"
     t.integer  "q22"
-    t.integer  "course_id"
+    t.integer  "course_stat_id"
     t.integer  "institute_id"
-    t.datetime "created_at",   null: false
-    t.datetime "updated_at",   null: false
-    t.index ["course_id"], name: "index_nsses_on_course_id", using: :btree
+    t.datetime "created_at",     null: false
+    t.datetime "updated_at",     null: false
+    t.index ["course_stat_id"], name: "index_nsses_on_course_stat_id", using: :btree
     t.index ["institute_id"], name: "index_nsses_on_institute_id", using: :btree
   end
 
   create_table "qualifications", force: :cascade do |t|
     t.integer  "kisaimcode"
     t.string   "name"
-    t.integer  "course_id"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index ["course_id"], name: "index_qualifications_on_course_id", using: :btree
-  end
-
-  create_table "reviews", force: :cascade do |t|
-    t.integer  "rating"
-    t.text     "comment"
-    t.datetime "created_at",      null: false
-    t.datetime "updated_at",      null: false
-    t.integer  "user_id"
-    t.string   "reviewable_type"
-    t.integer  "reviewable_id"
-    t.index ["reviewable_type", "reviewable_id"], name: "index_reviews_on_reviewable_type_and_reviewable_id", using: :btree
-    t.index ["user_id"], name: "index_reviews_on_user_id", using: :btree
+    t.integer  "course_stat_id"
+    t.datetime "created_at",     null: false
+    t.datetime "updated_at",     null: false
+    t.index ["course_stat_id"], name: "index_qualifications_on_course_stat_id", using: :btree
   end
 
   create_table "salaries", force: :cascade do |t|
@@ -459,11 +489,11 @@ ActiveRecord::Schema.define(version: 20170308114713) do
     t.integer  "instlq"
     t.integer  "instmed"
     t.integer  "instuq"
-    t.integer  "course_id"
+    t.integer  "course_stat_id"
     t.integer  "institute_id"
-    t.datetime "created_at",   null: false
-    t.datetime "updated_at",   null: false
-    t.index ["course_id"], name: "index_salaries_on_course_id", using: :btree
+    t.datetime "created_at",     null: false
+    t.datetime "updated_at",     null: false
+    t.index ["course_stat_id"], name: "index_salaries_on_course_stat_id", using: :btree
     t.index ["institute_id"], name: "index_salaries_on_institute_id", using: :btree
   end
 
@@ -474,11 +504,11 @@ ActiveRecord::Schema.define(version: 20170308114713) do
     t.integer  "kismode"
     t.integer  "sbj"
     t.string   "subject"
-    t.integer  "course_id"
+    t.integer  "course_stat_id"
     t.integer  "institute_id"
-    t.datetime "created_at",   null: false
-    t.datetime "updated_at",   null: false
-    t.index ["course_id"], name: "index_subject_entities_on_course_id", using: :btree
+    t.datetime "created_at",     null: false
+    t.datetime "updated_at",     null: false
+    t.index ["course_stat_id"], name: "index_subject_entities_on_course_stat_id", using: :btree
     t.index ["institute_id"], name: "index_subject_entities_on_institute_id", using: :btree
   end
 
@@ -504,11 +534,11 @@ ActiveRecord::Schema.define(version: 20170308114713) do
     t.integer  "t208"
     t.integer  "t224"
     t.integer  "t240"
-    t.integer  "course_id"
+    t.integer  "course_stat_id"
     t.integer  "institute_id"
-    t.datetime "created_at",   null: false
-    t.datetime "updated_at",   null: false
-    t.index ["course_id"], name: "index_tariffs_on_course_id", using: :btree
+    t.datetime "created_at",     null: false
+    t.datetime "updated_at",     null: false
+    t.index ["course_stat_id"], name: "index_tariffs_on_course_stat_id", using: :btree
     t.index ["institute_id"], name: "index_tariffs_on_institute_id", using: :btree
   end
 
@@ -519,12 +549,12 @@ ActiveRecord::Schema.define(version: 20170308114713) do
     t.integer  "kismode"
     t.string   "locid"
     t.integer  "ucascourseid"
-    t.integer  "course_id"
+    t.integer  "course_stat_id"
     t.integer  "institute_id"
     t.integer  "location_id"
-    t.datetime "created_at",   null: false
-    t.datetime "updated_at",   null: false
-    t.index ["course_id"], name: "index_ucas_on_course_id", using: :btree
+    t.datetime "created_at",     null: false
+    t.datetime "updated_at",     null: false
+    t.index ["course_stat_id"], name: "index_ucas_on_course_stat_id", using: :btree
     t.index ["institute_id"], name: "index_ucas_on_institute_id", using: :btree
     t.index ["location_id"], name: "index_ucas_on_location_id", using: :btree
   end
@@ -548,36 +578,41 @@ ActiveRecord::Schema.define(version: 20170308114713) do
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true, using: :btree
   end
 
-  add_foreign_key "accreditation_by_courses", "courses"
+  add_foreign_key "accreditation_by_courses", "courses", column: "course_stat_id"
   add_foreign_key "accreditation_details", "accreditations"
-  add_foreign_key "accreditations", "courses"
-  add_foreign_key "common_job_types", "courses"
-  add_foreign_key "continuations", "courses"
-  add_foreign_key "course_stages", "courses"
+  add_foreign_key "accreditations", "courses", column: "course_stat_id"
+  add_foreign_key "common_job_types", "courses", column: "course_stat_id"
+  add_foreign_key "continuations", "courses", column: "course_stat_id"
+  add_foreign_key "course_stages", "courses", column: "course_stat_id"
   add_foreign_key "course_stages", "institutes"
+  add_foreign_key "course_stats", "courses"
+  add_foreign_key "course_stats", "institutes"
+  add_foreign_key "course_stats", "locations"
   add_foreign_key "courses", "institutes"
-  add_foreign_key "degree_classes", "courses"
+  add_foreign_key "courses", "locations"
+  add_foreign_key "degree_classes", "courses", column: "course_stat_id"
   add_foreign_key "degree_classes", "institutes"
-  add_foreign_key "employments", "courses"
+  add_foreign_key "employments", "courses", column: "course_stat_id"
   add_foreign_key "employments", "institutes"
-  add_foreign_key "entries", "courses"
+  add_foreign_key "entries", "courses", column: "course_stat_id"
   add_foreign_key "entries", "institutes"
-  add_foreign_key "job_types", "courses"
-  add_foreign_key "jobs", "courses"
+  add_foreign_key "job_stats", "courses"
+  add_foreign_key "job_stats", "jobs"
+  add_foreign_key "job_types", "courses", column: "course_stat_id"
+  add_foreign_key "jobs", "courses", column: "course_stat_id"
   add_foreign_key "locations", "institutes"
-  add_foreign_key "nhs_nsses", "courses"
+  add_foreign_key "nhs_nsses", "courses", column: "course_stat_id"
   add_foreign_key "nhs_nsses", "institutes"
-  add_foreign_key "nsses", "courses"
+  add_foreign_key "nsses", "courses", column: "course_stat_id"
   add_foreign_key "nsses", "institutes"
-  add_foreign_key "qualifications", "courses"
-  add_foreign_key "reviews", "users"
-  add_foreign_key "salaries", "courses"
+  add_foreign_key "qualifications", "courses", column: "course_stat_id"
+  add_foreign_key "salaries", "courses", column: "course_stat_id"
   add_foreign_key "salaries", "institutes"
-  add_foreign_key "subject_entities", "courses"
+  add_foreign_key "subject_entities", "courses", column: "course_stat_id"
   add_foreign_key "subject_entities", "institutes"
-  add_foreign_key "tariffs", "courses"
+  add_foreign_key "tariffs", "courses", column: "course_stat_id"
   add_foreign_key "tariffs", "institutes"
-  add_foreign_key "ucas", "courses"
+  add_foreign_key "ucas", "courses", column: "course_stat_id"
   add_foreign_key "ucas", "institutes"
   add_foreign_key "ucas", "locations"
 end

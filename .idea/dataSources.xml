@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="DataSourceManagerImpl" format="xml" hash="3256312982">
+    <data-source source="LOCAL" name="Rails qualiflower: development" uuid="b66fd031-ad98-49d0-8bd8-ad8b7d5d3a67">
+      <driver-ref>postgresql</driver-ref>
+      <jdbc-driver>org.postgresql.Driver</jdbc-driver>
+      <jdbc-url>jdbc:postgresql://127.0.0.1:5432/qualiflower_development</jdbc-url>
+      <user-name>dave</user-name>
+      <user-password>dfccdfcbdfd3df9fdf92df9cdfdedfc8</user-password>
+      <libraries />
+    </data-source>
+    <data-source source="LOCAL" name="Rails qualiflower: test" uuid="b5644e70-b8cb-4393-a4a3-7fa5a0a5ef43">
+      <driver-ref>postgresql</driver-ref>
+      <jdbc-driver>org.postgresql.Driver</jdbc-driver>
+      <jdbc-url>jdbc:postgresql://127.0.0.1:5432/qualiflower_test</jdbc-url>
+      <user-name>dave</user-name>
+      <user-password>dfccdfcbdfd3df9fdf92df9cdfdedfc8</user-password>
+      <libraries />
+    </data-source>
+    <data-source source="LOCAL" name="Rails qualiflower: production" uuid="e9954812-112c-4402-817e-bc8d06243e67">
+      <driver-ref>postgresql</driver-ref>
+      <jdbc-driver>org.postgresql.Driver</jdbc-driver>
+      <jdbc-url>jdbc:postgresql:qualiflower_production</jdbc-url>
+      <user-name>qualiflower</user-name>
+      <user-password>df96df8fdf97df8adfefdfe4dffcdff1df8ddffbdfffdfebdfe6dfe3dfecdfe6dfe5dffddfefdff8dff5dfeedfebdffedfebdfe8dfebdff9dfefdff5dffadfebdff9dff9dffddfe5dff8dfeedf8ddff7df8adf8fdf94</user-password>
+      <libraries />
+    </data-source>
+  </component>
+</project>
+
