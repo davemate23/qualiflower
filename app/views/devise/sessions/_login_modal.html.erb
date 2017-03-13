@@ -1,0 +1,37 @@
+<div class="modal fade" id="login-modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style="display: none;">
+  <div class="modal-dialog">
+    <div class="loginmodal-container">
+      <a href="#" class="close" data-dismiss="modal">x</a>
+
+      <h1>Login to Your Account</h1><br>
+      <%= form_for(resource, as: resource_name, url: session_path(resource_name),remote: true) do |f| %>
+          <div class="clear"></div>
+          <div class="alert alert-error" style="display:none" id="addError">
+          </div>
+          <%= f.email_field :email, autofocus: true, class: "form-control",placeholder: "Email" %>
+          <%= f.password_field :password, autocomplete: "off", class: "form-control",placeholder: "Password"  %>
+          <% if devise_mapping.rememberable? -%>
+              <div class="form-group">
+                <%= f.check_box :remember_me %>
+                <%= f.label :remember_me %>
+              </div>
+          <% end -%>
+          <%= f.submit "Log in", class: "login loginmodal-submit" %>
+          <!--<input type="submit" name="commit" value="Log in" class="new_user login loginmodal-submit" data-disable-with="Log in">-->
+          <%#= render "devise/shared/links" %>
+      <% end %>
+      <div class="login-help">
+        <!--<a href="#">Register</a> - <a href="#">Forgot Password</a>-->
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+
+
+
+
+
+
+</script>

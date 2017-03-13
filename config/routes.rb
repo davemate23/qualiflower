@@ -1,8 +1,9 @@
 Rails.application.routes.draw do
 	
+  devise_for :admins
   resources :job_profiles
   resources :job_categories
-  devise_for :users
+  #devise_for :users
   resources :jobs
   resources :accreditations
   resources :locations
@@ -11,7 +12,8 @@ Rails.application.routes.draw do
   resources :courses do
     resources :comments
   end
-
+  devise_for :users, controllers: { sessions: 'sessions',registrations: 'registrations' }
+  # devise_for :admins
   resources :institutes do
     resources :comments
   	resources :courses 

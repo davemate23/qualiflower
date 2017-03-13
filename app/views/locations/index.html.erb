@@ -2,54 +2,16 @@
 
 <h1>Locations</h1>
 
-<table>
-  <thead>
-    <tr>
-      <th>Ukprn</th>
-      <th>Name</th>
-      <th>Lat</th>
-      <th>Long</th>
-      <th>Locid</th>
-      <th>Locukprn</th>
-      <th>Loccountry</th>
-      <th>Privatelower</th>
-      <th>Privateupper</th>
-      <th>Suurl</th>
-      <th>Accomurl</th>
-      <th>Instbeds</th>
-      <th>Instlower</th>
-      <th>Instupper</th>
-      <th>Institute</th>
-      <th colspan="3"></th>
-    </tr>
-  </thead>
+<%= form_tag locations_path, :method => 'get',:remote=>true, :id => "locations_search" do %>
+    <p>
+      <%= text_field_tag :search, params[:search] %>
+      <%= submit_tag "Search", :name => nil %>
+    </p>
+    <div id="locations"><%= render 'locations/locations' %></div>
+    <%= hidden_field_tag :direction, params[:direction] %>
+    <%= hidden_field_tag :sort, params[:sort] %>
+<% end %>
 
-  <tbody>
-    <% @locations.each do |location| %>
-      <tr>
-        <td><%= location.ukprn %></td>
-        <td><%= location.name %></td>
-        <td><%= location.lat %></td>
-        <td><%= location.long %></td>
-        <td><%= location.locid %></td>
-        <td><%= location.locukprn %></td>
-        <td><%= location.loccountry %></td>
-        <td><%= location.privatelower %></td>
-        <td><%= location.privateupper %></td>
-        <td><%= location.suurl %></td>
-        <td><%= location.accomurl %></td>
-        <td><%= location.instbeds %></td>
-        <td><%= location.instlower %></td>
-        <td><%= location.instupper %></td>
-        <td><%= location.institute %></td>
-        <td><%= link_to 'Show', location %></td>
-        <td><%= link_to 'Edit', edit_location_path(location) %></td>
-        <td><%= link_to 'Destroy', location, method: :delete, data: { confirm: 'Are you sure?' } %></td>
-      </tr>
-    <% end %>
-  </tbody>
-</table>
 
-<br>
+<%= link_to 'New Location', new_location_path if is_admin? %>
 
-<%= link_to 'New Location', new_location_path %>

@@ -1,3 +1,5 @@
+
+
 <%= form_for(job, :html => { multipart: true }) do |f| %>
   <% if job.errors.any? %>
     <div id="error_explanation">
@@ -22,39 +24,51 @@
   </div>
 
   <div class="field">
-    <%= f.label :pubukprn %>
-    <%= f.text_field :pubukprn %>
+    <%= f.label :alternativeernative %>
+    <%= f.text_field :alternativeernative %>
   </div>
 
   <div class="field">
-    <%= f.label :ukprn %>
-    <%= f.text_field :ukprn %>
+    <%= f.label :description %>
+    <%= f.text_area :description %>
   </div>
 
   <div class="field">
-    <%= f.label :kiscourseid %>
-    <%= f.text_field :kiscourseid %>
+    <%= f.label :pay %>
+    <%= f.text_field :pay %>
   </div>
 
   <div class="field">
-    <%= f.label :kismode %>
-    <%= f.number_field :kismode %>
+    <%= f.label :hours %>
+    <%= f.text_field :hours %>
   </div>
 
   <div class="field">
-    <%= f.label :comsbj %>
-    <%= f.number_field :comsbj %>
+    <%= f.label :skills %>
+    <%= f.text_area :skills %>
   </div>
 
   <div class="field">
-    <%= f.label :perc %>
-    <%= f.number_field :perc %>
+    <%= f.label :duties %>
+    <%= f.text_area :duties %>
   </div>
 
   <div class="field">
-    <%= f.label :order %>
-    <%= f.number_field :order %>
+    <%= f.label :salary %>
+    <%= f.number_field :salary %>
   </div>
+    <div class="field">
+      <%= f.label :working_hours %>
+      <%= f.number_field :working_hours %>
+    </div>
+    <div class="field">
+      <%= f.label :career_path %>
+      <%= f.text_area :career_path %>
+    </div>
+    <div class="field">
+      <%= f.label :related %>
+      <%= f.text_area :related %>
+    </div>
 
   <div class="actions">
     <%= f.submit %>

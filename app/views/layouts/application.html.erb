@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
   <%= render 'layouts/head' %>
-
+  <%= csrf_meta_tags %>
   <body>
   <%= render 'layouts/navbar' %>
   <div class="container-fluid">
@@ -17,6 +17,10 @@
     <%= yield %>
   </div>
   </body>
+
+  <%= render :partial=>"devise/sessions/login_modal" %>
+  <%= render :partial=>"devise/registrations/registration_modal" %>
+
   <%= render 'layouts/footer' %>
   <ul class="nav float-right scroll-top">
     <li class="nav-item"><a href="#section1" title="Scroll to top" class="nav-link"><i class="glyphicon glyphicon-chevron-up"></i></a>

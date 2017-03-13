@@ -6,40 +6,50 @@
 </p>
 
 <p>
-  <strong>Pubukprn:</strong>
-  <%= @job.pubukprn %>
+  <strong>Description:</strong>
+  <%= @job.description %>
 </p>
 
 <p>
-  <strong>Ukprn:</strong>
-  <%= @job.ukprn %>
+  <strong>Image:</strong>
+  <%= @job.image %>
 </p>
 
 <p>
-  <strong>Kiscourseid:</strong>
-  <%= @job.kiscourseid %>
+  <strong>Alternativeernative:</strong>
+  <%= @job.alternativeernative %>
 </p>
 
 <p>
-  <strong>Kismode:</strong>
-  <%= @job.kismode %>
+  <strong>Pay:</strong>
+  <%= @job.pay %>
 </p>
 
 <p>
-  <strong>Comsbj:</strong>
-  <%= @job.comsbj %>
+  <strong>Hours:</strong>
+  <%= @job.hours %>
 </p>
 
 <p>
-  <strong>Perc:</strong>
-  <%= @job.perc %>
+  <strong>Entry:</strong>
+  <%= @job.entry %>
 </p>
-
 <p>
-  <strong>Order:</strong>
-  <%= @job.order %>
+  <strong>Skills:</strong>
+  <%= @job.skills %>
 </p>
-
+<p>
+  <strong>Working_hours:</strong>
+  <%= @job.skills %>
+</p>
+<p>
+  <strong>Career path:</strong>
+  <%= @job.career_path %>
+</p>
+<p>
+  <strong>Related:</strong>
+  <%= @job.related %>
+</p>
 <%= render partial: "comments/template", locals: {commentable: @job, new_comment: @comment} %>
 
 <%= link_to 'Edit', edit_job_path(@job) %> |

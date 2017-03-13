@@ -1,0 +1,83 @@
+<%= hidden_field_tag :direction, params[:direction] %>
+<%= hidden_field_tag :sort, params[:sort] %>
+<table class="table">
+  <thead>
+  <tr>
+    <th><%= sortable "Ukprn" %></th>
+    <th><%= sortable "Name" %></th>
+    <th><%= sortable "Lat" %></th>
+    <th><%= sortable "Long" %></th>
+    <th><%= sortable "Locid" %></th>
+    <th><%= sortable "Locukprn" %></th>
+    <th><%= sortable "Loccountry" %></th>
+    <th><%= sortable "Privatelower" %></th>
+    <th><%= sortable "Privateupper" %></th>
+    <th><%= sortable "Suurl" %></th>
+    <th><%= sortable "Accomurl" %></th>
+    <th><%= sortable "Instbeds" %></th>
+    <th><%= sortable "Instlower" %></th>
+    <th><%= sortable "Instupper" %></th>
+    <th><%= sortable "Institute" %></th>
+    <th colspan="3"></th>
+  </tr>
+  </thead>
+
+  <tbody>
+  <% @search.results.each do |location| %>
+      <tr>
+        <td><%= location.ukprn %></td>
+        <td><%= location.name %></td>
+        <td><%= location.lat %></td>
+        <td><%= location.long %></td>
+        <td><%= location.locid %></td>
+        <td><%= location.locukprn %></td>
+        <td><%= location.loccountry %></td>
+        <td><%= location.privatelower %></td>
+        <td><%= location.privateupper %></td>
+        <td><%= location.suurl %></td>
+        <td><%= location.accomurl %></td>
+        <td><%= location.instbeds %></td>
+        <td><%= location.instlower %></td>
+        <td><%= location.instupper %></td>
+        <td><%= location.institute %></td>
+        <% if is_admin? %>
+            <td><%= link_to 'Show', location %></td>
+            <td><%= link_to 'Edit', edit_location_path(location) %></td>
+            <td><%= link_to 'Destroy', location, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+        <% end %>
+      </tr>
+  <% end %>
+  <%#= page_entries_info @locations %>
+  </tbody>
+</table>
+
+<br>
+<%= paginate @search.results %>
+
+
+<script>
+//    $( document ).ready(function() {
+//        $("#locations th a, #locations .pagination a").bind("click", function() {
+//            $.getScript(this.href);
+//            return false;
+//        });
+//        $("#locations_search input#search").keyup(function() {
+//            delay(function(){
+//                $.get($("#locations_search").attr("action"), $("#locations_search").serialize(), null, "script");
+//                return false;
+//            }, 1000 );
+//
+//        });
+//
+//        var delay = (function(){
+//            var timer = 0;
+//            return function(callback, ms){
+//                clearTimeout (timer);
+//                timer = setTimeout(callback, ms);
+//            };
+//        })();
+//
+//
+//    });
+
+</script>

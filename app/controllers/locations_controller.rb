@@ -1,10 +1,24 @@
 class LocationsController < ApplicationController
+  before_filter :authenticate_user!
   before_action :set_location, only: [:show, :edit, :update, :destroy]
+  helper_method :sort_column, :sort_direction
 
   # GET /locations
   # GET /locations.json
   def index
-    @locations = Location.all
+
+    @search = Sunspot.search(Location) do
+      #fulltext search
+      fulltext params[:search]
+      if params[:direction].present? && params[:sort].present?
+        order_by(params[:sort].downcase.to_sym, params[:direction].downcase.to_sym)
+        # order_by(:name, :asc)
+      end
+     paginate :page => params[:page], :per_page => 2
+
+    end
+    @search.execute!
+
   end
 
   # GET /locations/1
@@ -71,4 +85,14 @@ class LocationsController < ApplicationController
     def location_params
       params.require(:location).permit(:ukprn, :image, :name, :lat, :long, :locid, :locukprn, :loccountry, :privatelower, :privateupper, :suurl, :accomurl, :instbeds, :instlower, :instupper, :institute_id)
     end
+  private
+
+  def sort_column
+    Location.column_names.include?(params[:sort]) ? params[:sort] : "name"
+  end
+
+  def sort_direction
+    %w[asc desc].include?(params[:direction]) ? params[:direction] : "asc"
+  end
+
 end

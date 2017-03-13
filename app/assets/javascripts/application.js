@@ -17,6 +17,7 @@
 //= require turbolinks
 //= require_tree .
 
+
 /* activate scrollspy menu */
 $('body').scrollspy({
   target: '#navbar-collapsible',
@@ -37,3 +38,30 @@ $('a[href*=#]:not([href=#])').click(function() {
     }
 });
 
+
+
+// Locations Search and sort
+
+$( document ).ready(function() {
+    $("#locations th a, #locations .pagination a").bind("click", function() {
+        $.getScript(this.href);
+        return false;
+    });
+    $("#locations_search input#search").keyup(function() {
+        delay(function(){
+            $.get($("#locations_search").attr("action"), $("#locations_search").serialize(), null, "script");
+            return false;
+        }, 1000 );
+
+    });
+
+    var delay = (function(){
+        var timer = 0;
+        return function(callback, ms){
+            clearTimeout (timer);
+            timer = setTimeout(callback, ms);
+        };
+    })();
+
+
+});
