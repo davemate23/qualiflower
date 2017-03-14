@@ -1,0 +1,12 @@
+class CreateReviews < ActiveRecord::Migration[5.0]
+  def change
+    create_table :reviews do |t|
+      t.text :content
+      t.references :reviewable, polymorphic: true
+      t.integer :rating
+      t.string :ancestry, index: true
+
+      t.timestamps
+    end
+  end
+end

@@ -12,9 +12,33 @@
   <% end %>
 
   <div class="field">
-    <%= f.label :image %>
-    <%= f.file_field :image %>
+    <%= f.label :title %>
+    <%= f.file_field :title %>
   </div>
+    <div class="field">
+      <%= f.label :description %>
+      <%= f.file_field :description %>
+    </div>
+    <div class="field">
+      <%= f.label :duration %>
+      <%= f.file_field :duration %>
+    </div>
+    <div class="field">
+      <%= f.label :mode_of_study %>
+      <%= f.file_field :mode_of_study %>
+    </div>
+    <div class="field">
+      <%= f.label :contact_details %>
+      <%= f.file_field :contact_details %>
+    </div>
+    <div class="field">
+      <%= f.label :entry_requirements %>
+      <%= f.file_field :entry_requirements %>
+    </div>
+    <div class="field">
+      <%= f.label :future_careers %>
+      <%= f.file_field :future_careers %>
+    </div>
 
   <div class="actions">
     <%= f.submit %>

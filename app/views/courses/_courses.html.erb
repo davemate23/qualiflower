@@ -1,0 +1,61 @@
+<%= hidden_field_tag :direction, params[:direction] %>
+<%= hidden_field_tag :sort, params[:sort] %>
+<table class="table">
+  <thead>
+  <tr>
+    <th><%= sortable "Title" %></th>
+    <th><%= sortable "Description" %></th>
+    <th><%= sortable "Duration" %></th>
+    <th><%= sortable "Mode_of_study" %></th>
+    <th><%= sortable "Contact_details" %></th>
+    <th><%= sortable "Entry_requirements" %></th>
+    <th><%= sortable "Future_careers" %></th>
+
+    <th colspan="3"></th>
+  </tr>
+  </thead>
+
+  <tbody>
+  <% @search.results.each do |course| %>
+      <tr>
+        <td><%= course.title %></td>
+        <td><%= course.description %></td>
+        <td><%= course.duration %></td>
+        <td><%= course.mode_of_study %></td>
+        <td><%= course.contact_details %></td>
+        <td><%= course.entry_requirements %></td>
+        <td><%= course.future_careers %></td>
+
+
+        <% if is_admin? %>
+            <td><%= link_to 'Show', course %></td>
+            <td><%= link_to 'Edit', edit_course_path(job) %></td>
+            <td><%= link_to 'Destroy', course, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+        <% end %>
+      </tr>
+  <% end %>
+  <%#= page_entries_info @locations %>
+  </tbody>
+</table>
+
+<br>
+<%= paginate @search.results %>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

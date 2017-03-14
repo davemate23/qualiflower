@@ -20,9 +20,31 @@ class Course < ApplicationRecord
 	has_many :tariffs
 	has_many :ucas
 	has_many :comments, as: :commentable, dependent: :destroy
+  has_many :reviews, as: :reviewable, dependent: :destroy
 
-	validates :kiscourseid, uniqueness: true
+	# validates :kiscourseid, uniqueness: true
 
 
-	mount_uploader :image, ImageUploader
+  def self.search_results(search)
+    if search
+      courses =  Course.search { fulltext "#{search}" }
+    else
+      courses =  Course.order('created_at desc')
+    end
+  end
+
+  searchable do
+    text :description
+    text :title
+    string :description
+    string :title
+    string :duration
+    string :mode_of_study
+    string :string
+    text :contact_details
+    text :entry_requirements
+    text :future_careers
+
+  end
+
 end

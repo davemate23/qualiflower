@@ -3,6 +3,7 @@ class Location < ApplicationRecord
   has_many :courses
   mount_uploader :image, ImageUploader
   has_many :comments, as: :commentable, dependent: :destroy
+  has_many :reviews, as: :reviewable, dependent: :destroy
 
   def self.search_results(search)
     if search

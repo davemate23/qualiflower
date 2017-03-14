@@ -1,11 +1,24 @@
 class CoursesController < ApplicationController
   before_action :set_course, only: [:show, :edit, :update, :destroy]
   include Qualiflower::Commentable
-
+  helper_method :sort_column, :sort_direction
   # GET /courses
   # GET /courses.json
+
   def index
+    # @jobs = Job.all
     @courses = Course.all
+    @search = Sunspot.search(Course) do
+      #fulltext search
+      fulltext params[:search]
+      if params[:direction].present? && params[:sort].present?
+        order_by(params[:sort].downcase.to_sym, params[:direction].downcase.to_sym)
+        # order_by(:name, :asc)
+      end
+      paginate :page => params[:page], :per_page => 2
+
+    end
+    @search.execute!
   end
 
   # GET /courses/1
@@ -74,4 +87,14 @@ class CoursesController < ApplicationController
     def course_params
       params.require(:course).permit(:pubukprn, :institute_id, :ukprn, :assurl, :crseurl, :distance, :employurl, :engfee, :feetbc, :foundation, :honours, :jacs1, :jacs2, :jacs3, :kiscourseid, :kismode, :kistype, :ldcs1, :ldcs2, :ldcs3, :level, :locchnge, :lturl, :meanssup, :nhs, :nifee, :noncreditassess, :numstage, :othsup, :relatedkis1, :relatedkis2, :relatedkis3, :sandwich, :scotfee, :supporturl, :title, :ucasprogid, :ukprnapply, :varfee, :waiver, :welsh, :yearabroad, :kisaim, :avgwritten, :avgcoursework, :location_id, :image, :avgscheduled)
     end
+
+  def sort_column
+    Location.column_names.include?(params[:sort]) ? params[:sort] : "name"
+  end
+
+  def sort_direction
+    %w[asc desc].include?(params[:direction]) ? params[:direction] : "asc"
+  end
+
+
 end

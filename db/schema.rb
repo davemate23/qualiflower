@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170313024449) do
+ActiveRecord::Schema.define(version: 20170314173751) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -204,11 +204,11 @@ ActiveRecord::Schema.define(version: 20170313024449) do
 
   create_table "courses", force: :cascade do |t|
     t.string   "title"
-    t.integer  "location_id"
-    t.integer  "institute_id"
     t.datetime "created_at",         null: false
     t.datetime "updated_at",         null: false
     t.string   "image"
+    t.integer  "location_id"
+    t.integer  "institute_id"
     t.text     "description"
     t.string   "duration"
     t.string   "mode_of_study"
@@ -390,7 +390,11 @@ ActiveRecord::Schema.define(version: 20170313024449) do
     t.text     "working_hours"
     t.text     "career_path"
     t.text     "related"
+    t.integer  "course_id"
+    t.integer  "institute_id"
+    t.index ["course_id"], name: "index_jobs_on_course_id", using: :btree
     t.index ["course_stat_id"], name: "index_jobs_on_course_stat_id", using: :btree
+    t.index ["institute_id"], name: "index_jobs_on_institute_id", using: :btree
   end
 
   create_table "locations", force: :cascade do |t|
@@ -486,6 +490,18 @@ ActiveRecord::Schema.define(version: 20170313024449) do
     t.datetime "created_at",     null: false
     t.datetime "updated_at",     null: false
     t.index ["course_stat_id"], name: "index_qualifications_on_course_stat_id", using: :btree
+  end
+
+  create_table "reviews", force: :cascade do |t|
+    t.text     "content"
+    t.string   "reviewable_type"
+    t.integer  "reviewable_id"
+    t.integer  "rating"
+    t.string   "ancestry"
+    t.datetime "created_at",      null: false
+    t.datetime "updated_at",      null: false
+    t.index ["ancestry"], name: "index_reviews_on_ancestry", using: :btree
+    t.index ["reviewable_type", "reviewable_id"], name: "index_reviews_on_reviewable_type_and_reviewable_id", using: :btree
   end
 
   create_table "salaries", force: :cascade do |t|
@@ -618,6 +634,7 @@ ActiveRecord::Schema.define(version: 20170313024449) do
   add_foreign_key "job_stats", "jobs"
   add_foreign_key "job_types", "courses", column: "course_stat_id"
   add_foreign_key "jobs", "courses", column: "course_stat_id"
+  add_foreign_key "jobs", "institutes"
   add_foreign_key "locations", "institutes"
   add_foreign_key "nhs_nsses", "courses", column: "course_stat_id"
   add_foreign_key "nhs_nsses", "institutes"

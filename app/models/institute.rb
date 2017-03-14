@@ -6,5 +6,6 @@ class Institute < ApplicationRecord
 
 	mount_uploader :image, ImageUploader
 	has_many :comments, as: :commentable, dependent: :destroy
+  has_many :reviews, as: :reviewable, dependent: :destroy
 
 end
