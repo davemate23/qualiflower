@@ -54,4 +54,5 @@ Rails.application.configure do
 
   # Require for Devise gem
   config.action_mailer.default_url_options = { host: 'localhost', port: 3000 }
+  #Sunspot.config.solr.url = 'http://localhost:8982/solr'
 end
