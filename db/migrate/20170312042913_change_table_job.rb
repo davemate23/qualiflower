@@ -14,7 +14,7 @@ class ChangeTableJob < ActiveRecord::Migration[5.0]
         t.text :working_hours
         t.text :career_path
         t.text :related
-        t.text :title
+
         t.references :course
         # t.references :location, foreign_key: true
         t.references :institute, foreign_key: true

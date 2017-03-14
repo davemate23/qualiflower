@@ -204,11 +204,11 @@ ActiveRecord::Schema.define(version: 20170314173751) do
 
   create_table "courses", force: :cascade do |t|
     t.string   "title"
+    t.integer  "location_id"
+    t.integer  "institute_id"
     t.datetime "created_at",         null: false
     t.datetime "updated_at",         null: false
     t.string   "image"
-    t.integer  "location_id"
-    t.integer  "institute_id"
     t.text     "description"
     t.string   "duration"
     t.string   "mode_of_study"
