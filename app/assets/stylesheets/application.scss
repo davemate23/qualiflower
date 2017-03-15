@@ -11,11 +11,12 @@
  * It is generally better to create a new file per style scope.
  *
  *= require font-awesome
+ *= require login_modal
  */
 
  
 @import 'bootstrap';
-@import 'login_modal';
+//@import 'login_modal';
 
 html,body {
   height:100%;
