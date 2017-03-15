@@ -88,7 +88,7 @@ class JobsController < ApplicationController
     end
 
    def sort_column
-    Location.column_names.include?(params[:sort]) ? params[:sort] : "name"
+    Job.column_names.include?(params[:sort]) ? params[:sort] : "name"
   end
 
   def sort_direction

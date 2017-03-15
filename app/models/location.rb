@@ -13,6 +13,8 @@ class Location < ApplicationRecord
     end
   end
 
+
+
   searchable do
     text :ukprn
     string :ukprn

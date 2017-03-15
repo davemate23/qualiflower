@@ -1,11 +1,27 @@
 class InstitutesController < ApplicationController
   before_action :set_institute, only: [:show, :edit, :update, :destroy]
   include Qualiflower::Commentable
+  helper_method :sort_column, :sort_direction
 
   # GET /institutes
   # GET /institutes.json
+  # def index
+  #   @institutes = Institute.page(params[:page]).per(10)
+  # end
   def index
-    @institutes = Institute.page(params[:page]).per(10)
+    # @jobs = Job.all
+
+    @search = Sunspot.search(Institute) do
+      #fulltext search
+      fulltext params[:search]
+      if params[:direction].present? && params[:sort].present?
+        order_by(params[:sort].downcase.to_sym, params[:direction].downcase.to_sym)
+        # order_by(:name, :asc)
+      end
+      paginate :page => params[:page], :per_page => 2
+
+    end
+    @search.execute!
   end
 
   # GET /institutes/1
@@ -74,4 +90,12 @@ class InstitutesController < ApplicationController
     def institute_params
       params.require(:institute).permit(:name, :remote_image_url, :description, :picture, :suurl, :ukprn, :pubukprn, :country, :pubukprncountry, :tefmark, :q24, :q24pop, :q24resp_rate)
     end
+    def sort_column
+      Institute.column_names.include?(params[:sort]) ? params[:sort] : "name"
+    end
+
+    def sort_direction
+      %w[asc desc].include?(params[:direction]) ? params[:direction] : "asc"
+    end
+
 end

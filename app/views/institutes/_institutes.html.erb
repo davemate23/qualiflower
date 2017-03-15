@@ -1,0 +1,39 @@
+
+<%= hidden_field_tag :direction, params[:direction] %>
+<%= hidden_field_tag :sort, params[:sort] %>
+<table class="table">
+  <thead>
+  <tr>
+    <th><%= sortable "Name" %></th>
+    <th><%= sortable "Description" %></th>
+    <th><%= sortable "Ukprn" %></th>
+    <th><%= sortable "Country" %></th>
+    <th><%= sortable "Pubukprncountry" %></th>
+    <th>Image</th>
+
+    <th colspan="3"></th>
+  </tr>
+  </thead>
+
+  <tbody>
+  <% @search.results.each do |institute| %>
+      <tr>
+        <td><%= link_to institute.name, institute %></td>
+        <td><%= institute.description %></td>
+        <td><%= institute.ukprn %></td>
+        <td><%= institute.country %></td>
+        <td><%= institute.pubukprncountry %></td>
+        <td><%= image_tag(institute.image_url(:thumb), size: 50) if institute.image? %></td>
+        <% if is_admin? %>
+            <td><%= link_to 'Show', institute %></td>
+            <td><%= link_to 'Edit', edit_institute_path(institute) %></td>
+            <td><%= link_to 'Destroy', institute, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+        <% end %>
+      </tr>
+  <% end %>
+  <%#= page_entries_info @locations %>
+  </tbody>
+</table>
+
+<br>
+<%= paginate @search.results %>
