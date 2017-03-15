@@ -85,5 +85,10 @@ Rails.application.configure do
   config.active_record.dump_schema_after_migration = false
 
   # Required for Devise. Remember to change host to actual host.
-  config.action_mailer.default_url_options = { host: 'localhost', port: 3000 }
+  config.action_mailer.default_url_options = { host: 'enigmatic-brushlands-38187.herokuapp.com' }
+
+  config.cache_classes = true
+  config.serve_static_assets = true
+  config.assets.compile = true
+  config.assets.digest = true
 end
