@@ -263,8 +263,6 @@
     
     <!-- required by Solr 5 -->
     <field name="_version_" type="tlong" indexed="true" stored="true" multiValued="false" />
-
-    <field name="type" stored="false" type="string" multiValued="true" indexed="true"/>
   </fields>
   
   <!-- Field to use to determine and enforce document uniqueness.
