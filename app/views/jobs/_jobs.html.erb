@@ -1,8 +1,9 @@
 <%= hidden_field_tag :direction, params[:direction] %>
 <%= hidden_field_tag :sort, params[:sort] %>
-<table class="table">
+<table class="table table-bordered">
   <thead>
   <tr>
+    <th>#</th>
     <th><%= sortable "Title" %></th>
     <th><%= sortable "Alternativeernative" %></th>
     <th><%= sortable "Description" %></th>
@@ -18,18 +19,20 @@
   </thead>
 
   <tbody>
-  <% @search.results.each do |job| %>
+  <% @search.results.each_with_index do |job,index| %>
       <tr>
-        <td><%= job.title %></td>
-        <td><%= job.alternativeernative %></td>
-        <td><%= job.description %></td>
-        <td><%= job.pay %></td>
-        <td><%= job.hours %></td>
-        <td><%= job.entry %></td>
-        <td><%= job.skills %></td>
-        <td><%= job.salary %></td>
-        <td><%= job.working_hours %></td>
-        <td><%= job.career_path %></td>
+
+        <th scope="row"><%= index+1 %></th>
+        <td><%= job.title.html_safe rescue "" %></td>
+        <td><%= job.alternativeernative.html_safe rescue "" %></td>
+        <td><%= job.description.html_safe rescue "" %></td>
+        <td><%= job.pay.html_safe rescue "" %></td>
+        <td><%= job.hours.html_safe rescue "" %></td>
+        <td><%= job.entry.html_safe rescue "" %></td>
+        <td><%= job.skills.html_safe rescue "" %></td>
+        <td><%= job.salary.html_safe rescue "" %></td>
+        <td><%= job.working_hours.html_safe rescue "" %></td>
+        <td><%= job.career_path.html_safe rescue "" %></td>
         <td><%#= job.institutes %></td>
 
         <% if is_admin? %>

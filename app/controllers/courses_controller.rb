@@ -7,7 +7,7 @@ class CoursesController < ApplicationController
 
   def index
     # @jobs = Job.all
-    @courses = Course.all
+    # @courses = Course.all
     @search = Sunspot.search(Course) do
       #fulltext search
       fulltext params[:search]

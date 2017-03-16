@@ -2,7 +2,7 @@
 
 <p>
   <strong>Title:</strong>
-  <%= @job.title %>
+  <%= @job.title.html_safe %>
 </p>
 
 <p>
@@ -32,15 +32,15 @@
 
 <p>
   <strong>Entry:</strong>
-  <%= @job.entry %>
+  <%= @job.entry.html_safe %>
 </p>
 <p>
   <strong>Skills:</strong>
-  <%= @job.skills %>
+  <%= @job.skills.html_safe %>
 </p>
 <p>
   <strong>Working_hours:</strong>
-  <%= @job.skills %>
+  <%= @job.working_hours.html_safe rescue "" %>
 </p>
 <p>
   <strong>Career path:</strong>
