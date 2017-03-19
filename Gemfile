@@ -44,8 +44,9 @@ gem 'mini_magick'
 gem 'kaminari'
 gem 'ancestry'
 
-gem 'sunspot_rails'
+# gem 'sunspot_rails'
 gem 'sunspot_solr'
+gem 'sunspot_rails', '~> 1.3.0'
 
 # Use Capistrano for deployment
 # gem 'capistrano-rails', group: :development
