@@ -130,6 +130,8 @@
      default: a value that should be used if no value is specified
        when adding a document.
    -->
+
+
     <!-- *** This field is used by Sunspot! *** -->
     <field name="id" stored="true" type="string" multiValued="false" indexed="true"/>
     <!-- *** This field is used by Sunspot! *** -->
