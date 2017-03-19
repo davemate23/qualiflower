@@ -4,6 +4,7 @@ class JobCategory < ApplicationRecord
 
   def self.scrap_job_categories
 
+
     require 'open-uri'
     require 'nokogiri'
     url ="http://www.neighbourhood.statistics.gov.uk/HTMLDocs/dev3/ONS_SOC_hierarchy_view.html"
