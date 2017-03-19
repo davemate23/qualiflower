@@ -45,8 +45,8 @@ class Job < ApplicationRecord
       profile_doc = Nokogiri::HTML(open("https://nationalcareersservice.direct.gov.uk/job-profiles/#{each_ch}"))
       profile_doc.css(".column-one-half ul.list li a").each do |each_profile|
 
-        # job_profile= "https://nationalcareersservice.direct.gov.uk#{each_profile["href"]}"
-        # if !Job.where("title like ?", "%#{each_profile.text}%").present?
+
+        if !Job.where("title like ?", "%#{each_profile.text}%").present?
         profile_info_doc = Nokogiri::HTML(open("https://nationalcareersservice.direct.gov.uk#{each_profile["href"]}"))
         job = Job.find_or_create_by(title: profile_info_doc.css('.column-two-thirds h1').to_s)
         job.entry=profile_info_doc.css('#entry-requirements').to_s
@@ -60,9 +60,8 @@ class Job < ApplicationRecord
         job.hours=profile_info_doc.css('.profile .forty').to_s
         job.save
         p job
-        # else
-        #   p "present"
-        # end
+
+         end
 
       end
 

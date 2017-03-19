@@ -69,3 +69,16 @@ gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
 #gem 'unistats'
 gem 'unistats', :path=>'unistats'
 gem 'nokogiri'
+gem 'acts_as_tree'
+gem 'metainspector'
+
+
+
+
+gem "chromedriver-helper"
+gem 'capybara'
+gem 'poltergeist'
+gem 'launchy'
+gem 'test-unit'
+gem 'watir'
+gem 'httpclient'
