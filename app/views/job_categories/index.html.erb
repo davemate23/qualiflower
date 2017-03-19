@@ -2,36 +2,69 @@
 
 <h1>Job Categories</h1>
 
-<table>
-  <thead>
-    <tr>
-      <th>Name</th>
-      <th>Description</th>
-      <th>Entry</th>
-      <th>Tasks</th>
-      <th>Related</th>
-      <th>Ancestry</th>
-      <th colspan="3"></th>
-    </tr>
-  </thead>
+   <div class="tree">
+      <ul>
+        <% @job_categories.each do |each_major| %>
+        <li>
 
-  <tbody>
-    <% @job_categories.each do |job_category| %>
-      <tr>
-        <td><%= job_category.name %></td>
-        <td><%= job_category.description %></td>
-        <td><%= job_category.entry %></td>
-        <td><%= job_category.tasks %></td>
-        <td><%= job_category.related %></td>
-        <td><%= job_category.ancestry %></td>
-        <td><%= link_to 'Show', job_category %></td>
-        <td><%= link_to 'Edit', edit_job_category_path(job_category) %></td>
-        <td><%= link_to 'Destroy', job_category, method: :delete, data: { confirm: 'Are you sure?' } %></td>
-      </tr>
-    <% end %>
-  </tbody>
-</table>
+          <span><i class="icon-folder-open"></i> Major</span> <a href=""><%= each_major.name %></a>
+          <!--<a href="#"><%#= each_major.name %></a>-->
 
-<br>
+          <ul>
+            <% each_major.subtree.each do |each_sub_major| %>
+            <li>
+              <span><i class="icon-minus-sign"></i> SubMajor</span> <a href=""><%= each_sub_major.name %></a>
+              <!--<a href="#"></a>-->
 
+              <ul>
+                <% each_sub_major.subtree.each do |each_minor| %>
+                <li>
+                  <span><i class="icon-leaf"></i> Minor</span> <a href=""><%= each_minor.name %></a>
+                  <!--<a href="#"></a>-->
+                  <ul>
+                    <% each_minor.subtree.each do |each_unit| %>
+                        <li>
+                          <span><i class="icon-leaf"></i> Unit</span> <a href=""><%= each_unit.name %></a>
+                          <!--<a href="#"><%#= each_unit.name %></a>-->
+                        </li>
+                    <% end %>
+                  </ul>
+
+                </li>
+                  <% end %>
+              </ul>
+            </li>
+         <% end %>
+          </ul>
+        </li>
+        <% end %>
+      </ul>
+    </div>
+
+<%= paginate @job_categories %>
 <%= link_to 'New Job Category', new_job_category_path %>
+
+
+
+<style>
+
+</style>
+
+<script>
+
+    $(function () {
+        $('.tree li:has(ul)').addClass('parent_li').find(' > span').attr('title', 'Collapse this branch');
+        $('.tree li.parent_li > span').on('click', function (e) {
+            var children = $(this).parent('li.parent_li').find(' > ul > li');
+            if (children.is(":visible")) {
+                children.hide('fast');
+                $(this).attr('title', 'Expand this branch').find(' > i').addClass('icon-plus-sign').removeClass('icon-minus-sign');
+            } else {
+                children.show('fast');
+                $(this).attr('title', 'Collapse this branch').find(' > i').addClass('icon-minus-sign').removeClass('icon-plus-sign');
+            }
+            e.stopPropagation();
+        });
+    });
+
+</script>

@@ -43,17 +43,18 @@ gem 'figaro'
 gem 'mini_magick'
 gem 'kaminari'
 gem 'ancestry'
+gem 'ancestry-treeview'
+ # gem 'sunspot_rails', :github => 'sunspot/sunspot'
+# gem 'sunspot_solr'
 
-# gem 'sunspot_rails'
-gem 'sunspot_solr'
-gem 'sunspot_rails', '~> 1.3.0'
-
+gem 'sunspot_rails'
 # Use Capistrano for deployment
 # gem 'capistrano-rails', group: :development
 
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
   gem 'byebug', platform: :mri
+  gem 'sunspot_solr'
 end
 
 group :development do
@@ -71,15 +72,15 @@ gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
 gem 'unistats', :path=>'unistats'
 gem 'nokogiri'
 gem 'acts_as_tree'
-gem 'metainspector'
+# gem 'metainspector'
 
 
 
 
-gem "chromedriver-helper"
-gem 'capybara'
+# gem "chromedriver-helper"
+# gem 'capybara'
 gem 'poltergeist'
-gem 'launchy'
+# gem 'launchy'
 gem 'test-unit'
 gem 'watir'
 gem 'httpclient'

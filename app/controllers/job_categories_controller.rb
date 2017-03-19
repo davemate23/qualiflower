@@ -4,7 +4,7 @@ class JobCategoriesController < ApplicationController
   # GET /job_categories
   # GET /job_categories.json
   def index
-    @job_categories = JobCategory.all
+    @job_categories = JobCategory.page(params[:page]).per(3)
   end
 
   # GET /job_categories/1

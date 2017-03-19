@@ -1,5 +1,6 @@
 class JobCategory < ApplicationRecord
   has_ancestry
+  # acts_as_tree order: "name"
 
 
   def self.scrap_job_categories
