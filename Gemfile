@@ -46,7 +46,7 @@ gem 'ancestry'
 gem 'ancestry-treeview'
  # gem 'sunspot_rails', :github => 'sunspot/sunspot'
 # gem 'sunspot_solr'
-
+#  gem 'sunspot_rails'
 gem 'sunspot_rails'
 # Use Capistrano for deployment
 # gem 'capistrano-rails', group: :development

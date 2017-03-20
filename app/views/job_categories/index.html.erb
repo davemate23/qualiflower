@@ -13,18 +13,18 @@
           <ul>
             <% each_major.subtree.each do |each_sub_major| %>
             <li>
-              <span><i class="icon-minus-sign"></i> SubMajor</span> <a href=""><%= each_sub_major.name %></a>
+              <span><i class="icon-minus-sign"></i> SubMajor</span> <%= link_to "#{each_sub_major.name}", each_sub_major %>
               <!--<a href="#"></a>-->
 
               <ul>
                 <% each_sub_major.subtree.each do |each_minor| %>
                 <li>
-                  <span><i class="icon-leaf"></i> Minor</span> <a href=""><%= each_minor.name %></a>
+                  <span><i class="icon-leaf"></i> Minor</span> <%= link_to "#{each_minor.name}", each_minor %>
                   <!--<a href="#"></a>-->
                   <ul>
                     <% each_minor.subtree.each do |each_unit| %>
                         <li>
-                          <span><i class="icon-leaf"></i> Unit</span> <a href=""><%= each_unit.name %></a>
+                          <span><i class="icon-leaf"></i> Unit</span> <%= link_to "#{each_unit.name}", each_unit %>
                           <!--<a href="#"><%#= each_unit.name %></a>-->
                         </li>
                     <% end %>

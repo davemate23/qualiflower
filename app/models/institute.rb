@@ -30,8 +30,6 @@ class Institute < ApplicationRecord
 
   def self.scrap_institutions
 
-
-
      $i = 0
      institutions=[]
     begin
@@ -41,11 +39,7 @@ class Institute < ApplicationRecord
       p $i
       $i +=1;
     end until api.institutions($i).count < 25
-     p "+========++++==institutions+++++++"
-     p institutions
-     p "++++++++++++++++====edn +++++++++++=="
-
-     institutions && institutions.flatten.each do |each_ele|
+       institutions && institutions.flatten.each do |each_ele|
        institute = Institute.find_or_create_by(:name=>each_ele["Name"])
        institute.suurl=each_ele["StudentUnionUrl"]
        institute.ukprn=each_ele["UKPRN"]
@@ -63,7 +57,7 @@ class Institute < ApplicationRecord
   end
 
 
-  def self.import_csv
+  def self.import_csv_api
     api=Unistats.new('7KGKHK8R5HFY8L6FL4Z4')
    CSV.foreach("/home/shivareddy/Desktop/projects/upwork/qualiflower/unistats/examples/INSTITUTION.csv", :headers => true) do |each_ele|
       # use row here...
@@ -81,13 +75,10 @@ class Institute < ApplicationRecord
 
      find_institute = Institute.where(:ukprn=> each_ele["UKPRN"])
      if !find_institute.present?
-      p institute1 = api.institution(each_ele["UKPRN"])
-      p "==========institute+++++++++"
-      p parsed_response = institute1.parsed_response
-      p "+++=end +++=="
-
+       self.sureLoadLink(30){
+       institute1 = api.institution(each_ele["UKPRN"])
+       parsed_response = institute1.parsed_response
       if parsed_response["ApiUrl"].present?
-
       institute = Institute.find_or_create_by(:ukprn=> parsed_response["ApiUrl"].split('/').last)
       institute.suurl= parsed_response["StudentUnionUrl"]
       institute.name= parsed_response["Name"]
@@ -99,29 +90,39 @@ class Institute < ApplicationRecord
       institute.q24= parsed_response["NSSQuestion24"]
       institute.q24resp_rate= parsed_response["NSSQuestion24ResponseRate"]
       institute.save
-
-
-end
-
+     end
+       }
      end
      end
 
 
   end
 
+  def self.sureLoadLink(mytimeout)
+    browser_loaded=0
+    while (browser_loaded == 0)
+      begin
+        browser_loaded=1
+        Timeout::timeout(mytimeout)  do
+          yield
+        end
+      rescue Timeout::Error => e
+        puts "Page load timed out: #{e}"
+        browser_loaded=0
+        retry
+      end
+    end
+  end
+
+
 def self.import
 
   api=Unistats.new('7KGKHK8R5HFY8L6FL4Z4')
   find_institute = Institute.where(:ukprn=> 10000163)
   if !find_institute.present?
-    p institute1 = api.institution(10000824)
-    p "==========institute+++++++++"
-    p parsed_response = institute1.parsed_response
-    p "+++=end +++=="
-
-
-    p institute = Institute.find_or_create_by(:ukprn=> parsed_response["ApiUrl"].split('/').last)
-    p 4444444444444444444444
+    institute_api = api.institution(10000824)
+    parsed_response = institute_api.parsed_response
+    institute = Institute.find_or_create_by(:ukprn=> parsed_response["ApiUrl"].split('/').last)
     institute.suurl= parsed_response["StudentUnionUrl"]
     institute.name= parsed_response["Name"]
     institute.pubukprn= parsed_response["PUBUKPRN"]
@@ -133,13 +134,10 @@ def self.import
     institute.q24resp_rate= parsed_response["NSSQuestion24ResponseRate"]
     institute.save
 
-
-
-
   end
 
 end
 
 
 
-  end
+ end

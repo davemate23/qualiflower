@@ -54,6 +54,7 @@
     -->
     <!-- *** This fieldType is used by Sunspot! *** -->
     <fieldType name="string" class="solr.StrField" omitNorms="true"/>
+
     <!-- *** This fieldType is used by Sunspot! *** -->
     <fieldType name="tdouble" class="solr.TrieDoubleField" omitNorms="true"/>
     <!-- *** This fieldType is used by Sunspot! *** -->

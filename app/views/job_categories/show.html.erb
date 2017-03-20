@@ -21,14 +21,14 @@
 <% if @job_category.tasks.present? %>
 <p>
   <strong>Tasks:</strong>
-  <%= @job_category.tasks %>
+  <%= @job_category.tasks.html_safe %>
 </p>
 <% end %>
 
 <% if @job_category.related.present? %>
 <p>
   <strong>Related:</strong>
-  <%= @job_category.related %>
+  <%= @job_category.related.html_safe %>
 </p>
 <% end %>
 
