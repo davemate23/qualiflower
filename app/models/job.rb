@@ -16,7 +16,7 @@ class Job < ApplicationRecord
 
   searchable do
     # string :alternativeernative
-    text :description
+    text :description, :as => :description_textp
     # text :title
     # string :title
     # string :description
