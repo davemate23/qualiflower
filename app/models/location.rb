@@ -15,24 +15,24 @@ class Location < ApplicationRecord
 
 
   #
-  # searchable do
-  #   text :ukprn
-  #   string :ukprn
-  #   string :name
-  #   float :lat
-  #   float :long
-  #   string :locid
-  #   string :locukprn
-  #   string :loccountry
-  #   integer :privatelower
-  #   integer :privateupper
-  #   string :suurl
-  #   string :accomurl
-  #   integer :instbeds
-  #   integer :instlower
-  #   integer :instupper
-  #
-  # end
+  searchable do
+    text :ukprn
+    string :ukprn
+    string :name
+    float :lat
+    float :long
+    string :locid
+    string :locukprn
+    string :loccountry
+    integer :privatelower
+    integer :privateupper
+    string :suurl
+    string :accomurl
+    integer :instbeds
+    integer :instlower
+    integer :instupper
+
+  end
 
 
 end
