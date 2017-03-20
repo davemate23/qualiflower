@@ -36,14 +36,14 @@ class Course < ApplicationRecord
   searchable do
     text :description
     text :title
-    # string :description
-    # string :title
-    # string :duration
-    # string :mode_of_study
-    # string :string
-    # text :contact_details
-    # text :entry_requirements
-    # text :future_careers
+    string :description
+    string :title
+    string :duration
+    string :mode_of_study
+    string :string
+    text :contact_details
+    text :entry_requirements
+    text :future_careers
 
   end
 
