@@ -59,20 +59,7 @@ class Institute < ApplicationRecord
 
   def self.import_csv_api
     api=Unistats.new('7KGKHK8R5HFY8L6FL4Z4')
-   CSV.foreach("/home/shivareddy/Desktop/projects/upwork/qualiflower/unistats/examples/INSTITUTION.csv", :headers => true) do |each_ele|
-      # use row here...
-      # institute = Institute.find_or_create_by(:ukprn=>each_ele["UKPRN"])
-      # institute.suurl=each_ele["SUURL"]
-      # institute.ukprn=each_ele["UKPRN"]
-      # institute.pubukprn=each_ele["PUBUKPRN"]
-      # institute.country=each_ele["COUNTRY"]
-      # institute.pubukprncountry=each_ele["PUBUKPRNCOUNTRY"]
-      # institute.tefmark=each_ele["TEFMARKER"]
-      # institute.q24pop=each_ele["Q24POP"]
-      # institute.q24=each_ele["Q24"]
-      # institute.q24resp_rate=each_ele["Q24RESP_RATE"]
-      # institute.save
-
+   CSV.foreach("#{Rails.root.join('unistats', 'examples', 'INSTITUTION.csv')}", :headers => true) do |each_ele|
      find_institute = Institute.where(:ukprn=> each_ele["UKPRN"])
      if !find_institute.present?
        self.sureLoadLink(30){
