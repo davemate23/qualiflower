@@ -15,21 +15,21 @@ class Job < ApplicationRecord
   end
 
   searchable do
-    string :alternativeernative
+    # string :alternativeernative
     text :description
-    text :title
-    string :title
-    string :description
-    string :pay
-    string :hours
-    text :entry
-    string :entry
-    text :skills
-    text :duties
-    text :salary
-    text :working_hours
-    text :career_path
-    text :related
+    # text :title
+    # string :title
+    # string :description
+    # string :pay
+    # string :hours
+    # text :entry
+    # string :entry
+    # text :skills
+    # text :duties
+    # text :salary
+    # text :working_hours
+    # text :career_path
+    # text :related
   end
 
   def self.scrap_jobs
