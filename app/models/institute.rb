@@ -16,16 +16,16 @@ class Institute < ApplicationRecord
     end
   end
 
-  # searchable do
-  #   text :name,:ukprn,:country,:pubukprncountry
-  #   string :name
-  #   text :description
-  #   string :description
-  #   string :ukprn
-  #   string :country
-  #   string :pubukprncountry
-  #
-  # end
+  searchable do
+    text :name,:ukprn,:country,:pubukprncountry
+    string :name
+    text :description
+    string :description
+    string :ukprn
+    string :country
+    string :pubukprncountry
+
+  end
 
 
   def self.scrap_institutions
@@ -79,6 +79,12 @@ class Institute < ApplicationRecord
       institute.save
      end
        }
+
+     else
+       institute = Institute.find_or_create_by(:ukprn=> each_ele["UKPRN"])
+       institute.name= each_ele["Name"]
+       institute.save
+
      end
      end
 
