@@ -1,6 +1,7 @@
 class Institute < ApplicationRecord
 	has_many :locations
 	has_many :courses
+  has_many :course_stats
 
 	validates :ukprn, uniqueness: true
 

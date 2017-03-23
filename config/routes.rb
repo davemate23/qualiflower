@@ -1,3 +1,4 @@
+require 'sidekiq/web'
 Rails.application.routes.draw do
 	
   devise_for :admins
@@ -19,5 +20,7 @@ Rails.application.routes.draw do
   	resources :courses 
   end
   root "pages#show", page: "home"
+
+  mount Sidekiq::Web => '/sidekiq'
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
 end
