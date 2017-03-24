@@ -10,7 +10,6 @@ class SyncWorker
 
     elsif sync_table == "Location"
 
-
     elsif sync_table == "Job"
 
          Job.scrap_jobs
