@@ -10,11 +10,12 @@ module Qualiflower
   class Application < Rails::Application
   	# The new line added for autoload of lib
   	config.autoload_paths += %W(#{config.root}/lib)
-  	config.autoload_paths += Dir["#{config.root}/lib/**/"]
-    config.eager_load_paths += ["#{config.root}/lib/workers/*"]
+
+    config.autoload_paths += %W(#{config.root}/lib/workers)
+    config.eager_load_paths += %W(#{config.root}/lib/workers)
     # Settings in config/environments/* take precedence over those specified here.
     # Application configuration should go into files in config/initializers
     # -- all .rb files in that directory are automatically loaded.
-
+    config.active_job.queue_adapter = :delayed_job
   end
 end
