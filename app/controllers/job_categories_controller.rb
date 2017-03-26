@@ -4,7 +4,8 @@ class JobCategoriesController < ApplicationController
   # GET /job_categories
   # GET /job_categories.json
   def index
-    @job_categories = JobCategory.page(params[:page]).per(3)
+    # @job_categories = JobCategory.page(params[:page]).per(3)
+    @job_categories = Kaminari.paginate_array(JobCategory.roots.reject{|el| !el.name.present? }).page(params[:page]).per(3)
   end
 
   # GET /job_categories/1

@@ -3,6 +3,10 @@ class JobCategory < ApplicationRecord
   # acts_as_tree order: "name"
 
 
+
+
+
+
   def self.scrap_job_categories
 
 
