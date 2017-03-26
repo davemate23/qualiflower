@@ -4,6 +4,7 @@
 <table class="table">
   <thead>
   <tr>
+    <th>#</th>
     <th><%= sortable "Name" %></th>
     <th><%= sortable "Description" %></th>
     <th><%= sortable "Ukprn" %></th>
@@ -16,8 +17,9 @@
   </thead>
 
   <tbody>
-  <% @search.results.each do |institute| %>
+  <% @search.results.each_with_index do |institute,index| %>
       <tr>
+        <th scope="row"><%= index+1 %></th>
         <td><%= link_to institute.name, institute %></td>
         <td><%= institute.description %></td>
         <td><%= institute.ukprn %></td>
