@@ -18,7 +18,7 @@ class InstitutesController < ApplicationController
         order_by(params[:sort].downcase.to_sym, params[:direction].downcase.to_sym)
         # order_by(:name, :asc)
       end
-      paginate :page => params[:page], :per_page => 2
+      paginate :page => params[:page]
 
     end
     @search.execute!
