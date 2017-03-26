@@ -1,9 +1,6 @@
-class SyncWorker
-  # include Sidekiq::Worker
-  # sidekiq_options queue: "high"
-  # sidekiq_options retry: false
 
-  def perform(sync_table)
+SyncWorker = Struct.new(:sync_table) do
+  def perform
     if sync_table == "Institute"
 
       Institute.import_csv_api
@@ -12,7 +9,7 @@ class SyncWorker
 
     elsif sync_table == "Job"
 
-         Job.scrap_jobs
+      Job.scrap_jobs
 
     elsif sync_table == "JobCategory"
 
@@ -34,3 +31,4 @@ class SyncWorker
     # snippet.update_attribute(:highlighted_code, request.body)
   end
 end
+

@@ -1,6 +1,9 @@
-require 'sidekiq/web'
+
 Rails.application.routes.draw do
 	
+  get 'sync/sync_config' => "sync#sync_config"
+  get 'sync/sync' => "sync#sync"
+
   devise_for :admins
   resources :job_profiles
   resources :job_categories
@@ -21,6 +24,6 @@ Rails.application.routes.draw do
   end
   root "pages#show", page: "home"
 
-  mount Sidekiq::Web => '/sidekiq'
+
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
 end

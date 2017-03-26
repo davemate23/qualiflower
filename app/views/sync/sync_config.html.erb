@@ -1,0 +1,24 @@
+<table class="table">
+  <thead>
+  <tr>
+    <th>Title</th>
+    <td>Action</td>
+    <th colspan="3"></th>
+  </tr>
+  </thead>
+  <tbody>
+ <% @sync_tables.each do |each_table| %>
+      <tr>
+        <td><%= each_table %></td>
+        <td><%= link_to 'Sync', sync_sync_path(:text=>each_table) %></td>
+
+        <td></td>
+
+      </tr>
+      <% end %>
+  </tbody>
+</table>
+
+<br>
+
+

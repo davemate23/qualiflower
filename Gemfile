@@ -71,11 +71,11 @@ gem 'unistats', :path=>'unistats'
 gem 'nokogiri'
 # gem 'metainspector'
 gem 'poltergeist'
-gem 'sidekiq'
+
 gem 'test-unit'
 gem 'watir'
 gem 'httpclient'
-gem 'redis-rails'
+
 gem 'delayed_job_active_record'
 
 
