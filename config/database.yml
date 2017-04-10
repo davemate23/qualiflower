@@ -40,22 +40,22 @@ development:
   adapter: postgresql
   encoding: utf8
   reconnect: false
-  database: qualiflower3
+  database: qualiflower
   port: 5432
   host: localhost
   pool: 5
-  username: postgres
+  username: root
   password: root
-#production:
-#  adapter: postgresql
-#  encoding: utf8
-#  reconnect: false
-#  database: vishnu_app3
-#  port: 5432
-#  host: localhost
-#  pool: 5
-#  username: h1bwiki
-#  password: h1bwikiapp
+production:
+  adapter: postgresql
+  encoding: utf8
+  reconnect: false
+  database: qualiflower
+  port: 5432
+  host: localhost
+  pool: 5
+  username: root
+  password: root
 #development:
 #  adapter: postgresql
 #  encoding: utf8
@@ -65,17 +65,6 @@ development:
 #  host: h1bwiki.celqzzcdkk3r.us-west-2.rds.amazonaws.com
 #  pool: 5
 #  username: h1bwiki
-#  password: h1bwikiapp
-production:
-  adapter: postgresql
-  encoding: utf8
-  reconnect: false
-  database: h1bwiki
-  port: 5432
-  host: h1bwiki.celqzzcdkk3r.us-west-2.rds.amazonaws.com
-  pool: 5
-  username: h1bwiki
-  password: h1bwikiapp
 #development:
 #  adapter: postgresql
 #  encoding: utf8
